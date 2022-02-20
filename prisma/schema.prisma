@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  address   String   @unique
+  name      String?
+  ens       String?
+  website   String?
+  twitter   String?
+  wechat    String?
+  discord   String?
+  opensea   String?
+  looksrare String?
+  message   String?
+  nonce Int?
+  avatarURI    String?
+  status    Int  @default(0)
+  assets    Asset[]
+}
+
+model Asset {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
+  tokenId      Int?
+  imageURI  String?
+  status       Int        @default(0)
+  User         User?      @relation(fields: [userId], references: [id])
+  userId       Int?
+}
+
+model Collection {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  address   String   @unique
+  tokenURI  String
+  imageURI  String?
+  name      String
+  website   String?
+  discord   String?
+  twitter   String?
+  opensea   String?
+  looksrare String?
+  Asset     Asset[]
+}
