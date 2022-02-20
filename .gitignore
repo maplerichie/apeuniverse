@@ -40,3 +40,5 @@ yarn-error.log*
 # prisma
 prisma/*db
 prisma/migrations
+
+*lock*
