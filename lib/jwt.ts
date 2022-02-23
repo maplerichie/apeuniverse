@@ -11,7 +11,11 @@ export const signJwt = async (id, address) => {
   return token;
 };
 
-export const verifyJwt = async (token) => {
-  const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-  return decoded;
+export const verifyJwt = async (token, address) => {
+  try {
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+    return decoded.address == address;
+  } catch (_) {
+    return false;
+  }
 };

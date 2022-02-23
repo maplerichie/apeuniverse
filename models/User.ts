@@ -3,6 +3,7 @@ export type User = {
   address: string;
   name: string;
   ens: string;
+  website: string;
   twitter: string;
   wechat: string;
   discord: string;

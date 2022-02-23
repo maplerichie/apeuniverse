@@ -1,31 +1,33 @@
 import React from "react";
 import ImageWithFallback from "./ImageWithFallback";
 import { Asset, Collection } from "../models";
+import styles from "../styles/Common.module.scss";
 
 const AssetImage: React.FC<{ asset: Asset; collection: Collection }> = ({
   asset,
   collection,
 }) => {
   return (
-    <div
-      style={{
-        borderRadius: 8,
-        overflow: "hidden",
-        height: 256,
-        width: 256,
-        position: "relative",
-        margin: "0.25rem",
-      }}
-    >
-      <ImageWithFallback
-        src={asset.imageURI}
-        alt={collection.name + "#" + asset.tokenId}
-        fallbackSrc={`nft.png`}
-        placeholder="blur"
-        blurDataURL={asset.imageURI}
-        layout="fill"
-        objectFit="cover"
-      />
+    <div key={asset.assetKey} className={styles.assetCard}>
+      <div className={styles.assetInner}>
+        <ImageWithFallback
+          src={asset.imageURI}
+          alt={collection.name + "#" + asset.tokenId}
+          fallbackSrc={"./nft.png"}
+          layout="fill"
+          objectFit="cover"
+          className={styles.assetImage}
+        />
+        <div className={styles.assetInfo}>
+          #{asset.tokenId}
+          <br />
+          {asset.owner.ens
+            ? asset.owner.ens
+            : asset.owner.name
+            ? asset.owner.name
+            : asset.owner.address}
+        </div>
+      </div>
     </div>
   );
 };

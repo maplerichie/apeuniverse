@@ -6,9 +6,12 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const { query, method } = req;
-  const assetId = req.query.id;
+  let assetId = req.query.id;
+  if (typeof assetId !== "string") {
+    assetId = assetId[0];
+  }
   const asset = await prisma.asset.findUnique({
-    where: { id: assetId },
+    where: { id: parseInt(assetId) },
   });
 
   switch (method) {

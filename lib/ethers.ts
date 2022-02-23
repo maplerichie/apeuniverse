@@ -13,7 +13,7 @@ export const getEns = async (address: string) => {
 };
 
 export const generateNonce = () => {
-  return Math.floor(1000 + Math.random() * 9999);
+  return Math.floor(1000 + Math.random() * 9000);
 };
 
 export const verifyMessage = async (

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { generateNonce } from "../../../lib/ethers";
+import { verifyJwt } from "../../../lib/jwt";
 
 export default async function handle(
   req: NextApiRequest,
@@ -8,41 +9,65 @@ export default async function handle(
 ) {
   const { query, method } = req;
   let { address } = req.query;
-  if (typeof address !== "string") {
-    address = address[0];
-  }
-  let user = await prisma.user.findUnique({
-    where: { address: address },
-    // select: { address: true, nonce: true },
-  });
+  let token = req.headers.authorization?.slice(7);
+  let verified = false,
+    user;
 
   switch (method) {
     case "GET":
-      if (user) {
-        // if (user.status === 1) {
-        //   res.status(200).json({ status: "ok", user: user });
-        // } else {
-        let nonce = generateNonce();
-        await prisma.user.update({
-          where: {
-            address: user.address,
-          },
-          data: {
-            address: address,
-            nonce: nonce,
+      if (token) {
+        verified = await verifyJwt(token, address);
+      }
+      if (typeof address !== "string") {
+        address = address[0];
+      }
+      if (verified) {
+        user = await prisma.user.findUnique({
+          where: { address: address },
+          select: {
+            id: true,
+            address: true,
+            name: true,
+            ens: true,
+            website: true,
+            twitter: true,
+            wechat: true,
+            discord: true,
+            opensea: true,
+            looksrare: true,
+            message: true,
+            avatarURI: true,
           },
         });
-        res.status(202).json({ status: "ok", nonce: nonce });
-        // }
+        res.status(200).json({ status: "ok", user: user, authenticated: true });
       } else {
-        let nonce = generateNonce();
-        await prisma.user.create({
-          data: {
-            address: address,
-            nonce: nonce,
-          },
+        user = await prisma.user.findUnique({
+          where: { address: address },
+          select: { address: true },
         });
-        res.status(201).json({ status: "ok", nonce: nonce });
+        if (user) {
+          let nonce = generateNonce();
+          await prisma.user.update({
+            where: {
+              address: user.address,
+            },
+            data: {
+              address: address,
+              nonce: nonce,
+            },
+          });
+          res.status(202).json({ status: "ok", nonce: nonce });
+          // }
+        } else {
+          let nonce = generateNonce();
+          await prisma.user.create({
+            data: {
+              address: address,
+              nonce: nonce,
+            },
+          });
+          res.status(201).json({ status: "ok", nonce: nonce });
+        }
       }
       break;
     default:

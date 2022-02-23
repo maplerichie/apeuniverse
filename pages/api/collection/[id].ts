@@ -6,9 +6,12 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const { query, method } = req;
-  const collectionId = req.query.id;
+  let collectionId = req.query.id;
+  if (typeof collectionId !== "string") {
+    collectionId = collectionId[0];
+  }
   const collection = await prisma.collection.findUnique({
-    where: { id: collectionId },
+    where: { id: parseInt(collectionId) },
   });
 
   switch (method) {

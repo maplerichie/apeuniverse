@@ -10,5 +10,5 @@ export type Collection = {
   discord: string;
   opensea: string;
   looksrare: string;
-  Asset: Asset[];
+  assets: Asset[];
 };

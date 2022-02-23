@@ -1,0 +1,36 @@
+$primary: #1ac9f0;
+$seconday: #ca0bb1;
+
+@import "~bootstrap/scss/bootstrap";
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: linear-gradient(to bottom right, #0f0c29, #000000);
+  color: white;
+  text-transform: uppercase;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// * {
+//   box-sizing: border-box;
+// }
+
+body::-webkit-scrollbar {
+  width: 0; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  width: 0;
+}
+
+body::-webkit-scrollbar-thumb {
+  width: 0;
+}
