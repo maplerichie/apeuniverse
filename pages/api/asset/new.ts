@@ -91,7 +91,7 @@ export default async function handle(
           //   method: "GET",
           //   headers: {
           //     "Content-Type": "application/json",
-          //     Origin: "http://localhost:3000",
+          //     Origin: "https://apexlabs.xyz",
           //   },
           // })
           //   .then((response) => response.json())

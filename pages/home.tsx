@@ -138,9 +138,9 @@ const Home: NextPage = (props: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await fetch("http://localhost:3000/api/user");
+  let res = await fetch("https://apexlabs.xyz/api/user");
   const users = await res.json();
-  res = await fetch("http://localhost:3000/api/collection");
+  res = await fetch("https://apexlabs.xyz/api/collection");
   const collections = await res.json();
   return {
     props: { users, collections },

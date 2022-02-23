@@ -26,7 +26,7 @@ const MemberEdit: NextPage = () => {
   useEffect(() => {
     async function auth() {
       const address = localStorage.getItem("address");
-      await fetch("http://localhost:3000/api/user/" + address, {
+      await fetch("https://apexlabs.xyz/api/user/" + address, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const MemberEdit: NextPage = () => {
       value === null || value === "" ? undefined : value
     );
     setLoading(true);
-    await fetch("http://localhost:3000/api/user", {
+    await fetch("https://apexlabs.xyz/api/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const MemberEdit: NextPage = () => {
 
   const updateAssets = async (e) => {
     setLoading(true);
-    await fetch("http://localhost:3000/api/asset/new", {
+    await fetch("https://apexlabs.xyz/api/asset/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
