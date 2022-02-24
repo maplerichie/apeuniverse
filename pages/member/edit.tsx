@@ -26,7 +26,7 @@ const MemberEdit: NextPage = () => {
   useEffect(() => {
     async function auth() {
       const address = localStorage.getItem("address");
-      await fetch("https://apexlabs.xyz/api/user/" + address, {
+      await fetch("https://metaverist.com/api/user/" + address, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const MemberEdit: NextPage = () => {
       value === null || value === "" ? undefined : value
     );
     setLoading(true);
-    await fetch("https://apexlabs.xyz/api/user", {
+    await fetch("https://metaverist.com/api/user", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const MemberEdit: NextPage = () => {
 
   const updateAssets = async (e) => {
     setLoading(true);
-    await fetch("https://apexlabs.xyz/api/asset/new", {
+    await fetch("https://metaverist.com/api/asset/new", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

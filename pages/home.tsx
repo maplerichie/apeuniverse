@@ -138,9 +138,9 @@ const Home: NextPage = (props: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  let res = await fetch("https://apexlabs.xyz/api/user");
+  let res = await fetch("https://metaverist.com/api/user");
   const users = await res.json();
-  res = await fetch("https://apexlabs.xyz/api/collection");
+  res = await fetch("https://metaverist.com/api/collection");
   const collections = await res.json();
   return {
     props: { users, collections },

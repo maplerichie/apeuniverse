@@ -52,7 +52,7 @@ export default async function handle(
             select: { id: true, address: true },
           });
 
-          fetch("https://apexlabs.xyz/api/asset/new", {
+          fetch("https://metaverist.com/api/asset/new", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: user.id, address: address }),
