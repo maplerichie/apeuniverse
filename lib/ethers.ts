@@ -22,8 +22,7 @@ export const verifyMessage = async (
   signature: string,
   address: string
 ) => {
-  const message = `Welcome to ApeUniverse.\n
-    Nonce: ${nonce}\nTimestamp: ${timestamp}`;
+  const message = `Welcome to ApeUniverse.\nNonce: ${nonce}\nTimestamp: ${timestamp}`;
   const signerAddr = utils.verifyMessage(message, signature);
 
   return signerAddr === address;

@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Avatar: React.FC<{ user: User }> = ({ user }) => {
   return (
-    <div key={user.id} className={styles.avatarCard}>
+    <div className={styles.avatarCard}>
       <div className={styles.avatarInner}>
         <ImageWithFallback
           src={user.avatarURI || "/user.png"}
@@ -60,7 +60,7 @@ const Avatar: React.FC<{ user: User }> = ({ user }) => {
             )}
           </div>
           {user.message ? (
-            <p style={{ textTransform: "capitalize" }}>{user.message}</p>
+            <p className={styles.userMessage}>{user.message}</p>
           ) : (
             <></>
           )}

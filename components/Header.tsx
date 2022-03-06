@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import {
-  Navbar,
-  Container,
-  Button,
-  Dropdown,
-  ButtonGroup,
-  NavDropdown,
-} from "react-bootstrap";
+import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
 import Router from "next/router";
-import Link from "next/link";
-import Image from "next/image";
 
 declare let window: any;
 
-const Appbar: React.FC<{}> = ({}) => {
-  //   const [isConnected, setConnected] = useState(false);
+const logo = {
+  maxWidth: "70vw",
+};
+
+const Header: React.FC<{}> = ({}) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
-  //   const [provider, setProvider] = useState(null);
-  //   const [signer, setSigner] = useState(null);
   const [address, setAddress] = useState("");
 
   useEffect(() => {
@@ -29,15 +21,8 @@ const Appbar: React.FC<{}> = ({}) => {
   });
 
   const connect = async () => {
-    // const url =
-    //   "https://api.opensea.io/api/v1/assets?asset_contract_address=0x60E4d786628Fea6478F785A6d7e704777c86a7c6&token_ids=6289";
-    // fetch(url, {
-    //   method: "GET",
-    //   headers: { "Content-Type": "application/json" },
-    // });
     let _signer;
     let _address;
-    // if (!isConnected) {
     const _provider = new ethers.providers.Web3Provider(window.ethereum);
     await _provider.send("eth_requestAccounts", []);
     const network = await _provider.getNetwork();
@@ -45,17 +30,13 @@ const Appbar: React.FC<{}> = ({}) => {
       alert("Please connect to Ethereum Mainnet");
       return;
     }
-    // setProvider(_provider);
     _signer = _provider.getSigner();
-    // setSigner(_signer);
     _address = await _signer.getAddress();
     if (ethers.utils.isAddress(_address)) {
-      //   setConnected(true);
       login(_signer, _address);
     } else {
       alert("Something strange occured. Please contact admin.");
     }
-    // }
   };
 
   const login = async (_signer, _address) => {
@@ -68,8 +49,7 @@ const Appbar: React.FC<{}> = ({}) => {
         if (res.status == "ok") {
           if (res.nonce) {
             let timestamp = new Date().getTime();
-            const message = `Welcome to ApeUniverse.\n
-              Nonce: ${res.nonce}\nTimestamp: ${timestamp}`;
+            const message = `Welcome to ApeUniverse.\nNonce: ${res.nonce}\nTimestamp: ${timestamp}`;
             try {
               const signature = await _signer.signMessage(message);
 
@@ -108,7 +88,7 @@ const Appbar: React.FC<{}> = ({}) => {
               alert(JSON.stringify(err));
             }
           } else {
-            // redirect
+            alert("System error");
           }
         } else {
           alert("Something strange occured. Please contact admin.");
@@ -121,58 +101,60 @@ const Appbar: React.FC<{}> = ({}) => {
 
   const disconnect = () => {
     setAddress("");
-    // setSigner(null);
-    // setConnected(false);
     setAuthenticated(false);
     localStorage.clear();
     Router.push("/home");
   };
 
   return (
-    <Navbar>
-      <Container>
+    <Navbar collapseOnSelect expand="md" bg="transparent" variant="dark">
+      <Container fluid>
         <Navbar.Brand href="/home">
           <img
-            alt="ApeUniverse.eth"
+            alt="apeuniverse.eth"
             src="/logo.png"
             height="32"
             className="d-inline-block align-top"
+            style={logo}
           />
         </Navbar.Brand>
-        <div className="d-flex">
-          <Link href="https://twitter.com/apeuniverse_eth">
-            <a target="_blank" rel="noopener noreferrer">
-              <Image src="/twitter.png" alt="Twitter" width="32" height="32" />
-            </a>
-          </Link>
-          &nbsp; &nbsp; &nbsp;
-          {isAuthenticated ? (
-            <>
-              <Dropdown as={ButtonGroup}>
-                <Button variant="outline-primary">
-                  {address.slice(0, 6) + "......" + address.slice(-6)}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="justify-content-end"
+        >
+          {/* <Nav className="me-auto"> */}
+          <Nav style={{ alignItems: "center" }}>
+            <Nav.Link
+              href="https://twitter.com/apeuniverse_eth"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/twitter.png" alt="Twitter" width="32" height="32" />
+            </Nav.Link>
+            {isAuthenticated ? (
+              <NavDropdown
+                title={address.slice(0, 6) + "......" + address.slice(-6)}
+                id="collasible-nav-dropdown"
+              >
+                <NavDropdown.Item href="/member/edit">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={disconnect}>
+                  Disconnect
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <Nav.Link>
+                <Button variant="primary" onClick={connect}>
+                  Connect Wallet
                 </Button>
-                <Dropdown.Toggle
-                  split
-                  variant="outline-primary"
-                  id="dropdown-split-basic"
-                />
-                <Dropdown.Menu>
-                  <Dropdown.Item href="/member/edit">Profile</Dropdown.Item>
-                  <NavDropdown.Divider />
-                  <Dropdown.Item onClick={disconnect}>Disconnect</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </>
-          ) : (
-            <Button variant="primary" onClick={connect}>
-              Connect Wallet
-            </Button>
-          )}
-        </div>
+              </Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
 
-export default Appbar;
+export default Header;

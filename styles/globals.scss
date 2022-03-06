@@ -4,6 +4,18 @@ $seconday: #ca0bb1;
 @import "~bootstrap/scss/bootstrap";
 
 html,
+#__next {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  html,
+  body,
+  #__next {
+    height: 100%;
+  }
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -12,8 +24,8 @@ body {
   background: linear-gradient(to bottom right, #0f0c29, #000000);
   color: white;
   text-transform: uppercase;
-  width: 100vw;
-  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {

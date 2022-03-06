@@ -1,16 +1,21 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
 .main {
-  padding: 4rem 0;
+  padding: 2rem 8px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
 .footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
+  width: 100%;
+  padding: 1.5rem 0;
   border-top: 1px solid #eaeaea;
 }
 
@@ -34,6 +39,27 @@
 .title {
   margin: 1.5rem 0;
   line-height: 1.15;
+  text-shadow: 0 0 3px #fff, 0 0 4px #fff, 0 0 10px #fff, 0 0 21px #cc00ff,
+    0 0 41px #cc00ff, 0 0 46px #cc00ff, 0 0 51px #cc00ff, 0 0 75px #cc00ff;
+  animation: flickerTitle 1.8s infinite alternate;
+}
+
+@keyframes flickerTitle {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 9px #fff, 0 0 20px #cc00ff,
+      0 0 40px #cc00ff, 0 0 40px #cc00ff, 0 0 50px #cc00ff, 0 0 20px #cc00ff;
+  }
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+  }
 }
 
 .title,
@@ -57,10 +83,8 @@
 
 .grid {
   display: flex;
-  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 95vw;
 }
 
 .card {
@@ -96,21 +120,6 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
-}
-
-.galleryContainer {
-  display: flex;
-  max-width: 95vw;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: center;
 }
 
 .landing {
@@ -199,6 +208,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
 
 .collectionLinks {
@@ -214,10 +224,10 @@
   color: #fff;
   text-shadow: 0 0 3px #fff, 0 0 4px #fff, 0 0 10px #fff, 0 0 21px #0fa,
     0 0 41px #0fa, 0 0 46px #0fa, 0 0 51px #0fa, 0 0 75px #0fa;
-  animation: flicker 1.8s infinite alternate;
+  animation: flickerCollectionTitle 1.8s infinite alternate;
 }
 
-@keyframes flicker {
+@keyframes flickerCollectionTitle {
   0%,
   18%,
   22%,
@@ -228,7 +238,6 @@
     text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 9px #fff, 0 0 20px #0fa,
       0 0 40px #0fa, 0 0 40px #0fa, 0 0 50px #0fa, 0 0 20px #0fa;
   }
-
   20%,
   24%,
   55% {
@@ -238,7 +247,7 @@
 
 .aboutus {
   // background: #2125297a;
-  border: 1px solid rgb(155 60 171);
+  border: 0.1px solid #0fa; // rgb(155 60 171);
   padding: 1em 2em;
   color: white;
   font-family: Tahoma, sans-serif;
@@ -258,7 +267,9 @@
   perspective: 1000px;
   position: relative;
   width: 192px;
+  max-width: 45vw;
   height: 192px;
+  max-height: 45vw;
   margin: 4px;
 }
 
@@ -297,43 +308,47 @@
 }
 
 .avatarCard {
-  background-color: transparent;
+  // background-color: transparent;
   perspective: 1000px;
-  position: relative;
   width: 150px;
+  max-width: 40vw;
   height: 150px;
+  max-height: 40vw;
   margin: 8px;
+  z-index: 1;
 }
 
 .avatarInner {
   position: relative;
   width: 100%;
   height: 100%;
-  text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .avatarCard:hover .avatarInner {
   transform: rotateX(180deg);
-  border-radius: 75px;
 }
 
 .avatarImage {
   border-radius: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
+  top: 0;
 }
 
-.avatarImage,
 .avatarInfo {
-  position: absolute;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-}
-
-.avatarInfo {
   background-color: #0f0c29;
-  width: 100%;
-  height: 100%;
+  width: 210px;
+  max-width: 50vw;
+  height: 210px;
+  max-height: 50vw;
   color: white;
   transform: rotateX(180deg);
   display: flex;
@@ -341,10 +356,47 @@
   justify-content: center;
   align-items: center;
   word-break: break-all;
-  padding: 4px;
+  padding: 8px;
   box-shadow: 1px 1px 10px 2px rgb(204, 0, 255);
+  position: absolute;
+  top: -30px;
+  left: -30px;
 }
 
 .avatarSocial {
   display: flex;
+}
+
+.userMessage {
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.75em;
+  line-height: 1.25em;
+}
+
+.pfpContainer {
+  border-radius: 50%;
+  border: 2px dashed #cc00ff;
+  padding: 16px;
+
+  > span {
+    border-radius: 50%;
+  }
+}
+
+.pfpModal {
+  button {
+    color: white;
+  }
+  > div > div {
+    background-color: #0f0c29;
+    box-shadow: 1px 1px 20px 1px #0fa;
+  }
+}
+
+.errorField {
+  color: #d361ef;
+  text-transform: initial;
 }

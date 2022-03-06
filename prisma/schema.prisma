@@ -18,8 +18,6 @@ model User {
   twitter   String?
   wechat    String?
   discord   String?
-  opensea   String?
-  looksrare String?
   message   String?
   nonce Int?
   avatarURI    String?

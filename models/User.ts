@@ -7,7 +7,7 @@ export type User = {
   twitter: string;
   wechat: string;
   discord: string;
-  opensea: string;
   message: string;
   avatarURI: string;
+  status: number;
 };

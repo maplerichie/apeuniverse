@@ -10,13 +10,14 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const { method, body } = req;
+  let haveApe = false;
 
   switch (method) {
     case "POST":
       let { userId, address } = body;
 
       const collections = await prisma.collection.findMany();
-      collections.map(async (collection) => {
+      await collections.map(async (collection) => {
         let contract = getErc721(collection.address);
         let balanceOf = uintToNumber(await contract.balanceOf(address));
         // let tokenIds = [];
@@ -41,6 +42,16 @@ export default async function handle(
           console.log("ERROR: Reset assets status ===>", err);
         }
         if (balanceOf > 0) {
+          if (!haveApe && collection.name.toLowerCase().includes("ape")) {
+            await prisma.user.update({
+              where: {
+                address: address,
+              },
+              data: {
+                status: 1,
+              },
+            });
+          }
           for (let i = 0; i < balanceOf; i++) {
             let tokenId = uintToNumber(
               await contract.tokenOfOwnerByIndex(address, i)
@@ -91,7 +102,7 @@ export default async function handle(
           //   method: "GET",
           //   headers: {
           //     "Content-Type": "application/json",
-          //     Origin: "https://metaverist.com",
+          //     Origin: process.env.DOMAIN_URL,
           //   },
           // })
           //   .then((response) => response.json())

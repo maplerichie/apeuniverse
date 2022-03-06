@@ -2,11 +2,11 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['i.insider.com', "ipfs.io", "lh3.googleusercontent.com"],
+    domains: ["ipfs.io", "i.insider.com", "lh3.googleusercontent.com", "c.tenor.com", "", "i.imgur.com", "i.imgflip.com", "thumbs.gfycat.com", "i.redd.it", "i.pinimg.com"],
   },
   typescript: {
     ignoreBuildErrors: true
   }
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

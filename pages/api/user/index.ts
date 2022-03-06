@@ -39,20 +39,18 @@ export default async function handle(
         if (user.status === 0) {
           welcome = true;
           let ens = await getEns(address);
-          user = await prisma.user.update({
+          await prisma.user.update({
             where: {
               address: user.address,
             },
             data: {
-              status: 1,
+              status: 2,
               ens: ens ? ens : "",
-              opensea: address,
-              looksrare: address,
             },
             select: { id: true, address: true },
           });
 
-          fetch("https://metaverist.com/api/asset/new", {
+          fetch(process.env.DOMAIN_URL + "api/asset/new", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId: user.id, address: address }),
@@ -72,9 +70,11 @@ export default async function handle(
       }
       if (verified) {
         delete body.id;
+        let address = body.address;
+        delete body.address;
         await prisma.user.update({
           where: {
-            address: body.address,
+            address: address,
           },
           data: body,
         });

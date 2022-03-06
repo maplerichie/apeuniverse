@@ -33,10 +33,9 @@ export default async function handle(
             twitter: true,
             wechat: true,
             discord: true,
-            opensea: true,
-            looksrare: true,
             message: true,
             avatarURI: true,
+            status: true,
           },
         });
         res.status(200).json({ status: "ok", user: user, authenticated: true });
