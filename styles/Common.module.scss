@@ -15,7 +15,7 @@
 
 @media only screen and (min-width: 600px) {
   .main {
-    padding: 2rem32px;
+    padding: 2rem 32px;
   }
 }
 
@@ -331,6 +331,10 @@
   transition: transform 0.8s;
   transform-style: preserve-3d;
   perspective: 1000px;
+
+  span {
+    pointer-events: none;
+  }
 }
 
 .avatarCard:hover .avatarInner {
@@ -343,8 +347,9 @@
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  position: relative;
+  position: relative !important;
   top: 0;
+  pointer-events: none;
 }
 
 .avatarInfo {
