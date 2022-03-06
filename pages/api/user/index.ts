@@ -25,7 +25,7 @@ export default async function handle(
           avatarURI: true,
         },
       });
-      res.json(users);
+      res.status(200).json(users);
       break;
     case "POST":
       let { address, timestamp, signature } = body;

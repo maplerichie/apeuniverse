@@ -31,5 +31,5 @@ export default async function handle(
     });
     collections[i]["assets"] = assets;
   }
-  res.json(collections);
+  res.status(200).json(collections);
 }
