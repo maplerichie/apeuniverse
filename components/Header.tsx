@@ -178,8 +178,8 @@ const Header: React.FC<{}> = ({}) => {
       >
         <Modal.Body>
           <span>
-            Sign a message is not terrible. But it is dangerous that you don't
-            know what you signed!
+            Sign a message is not terrible. But it is dangerous that you
+            don&apos;t know what you signed!
           </span>
           <br />
           <br />
