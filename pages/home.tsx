@@ -22,7 +22,7 @@ const Home: NextPage = (props: Props) => {
           <Avatar key={"user" + i} user={user} />
         ))}
       </div>
-      <div id="gallery">
+      <div id="gallery" style={{ width: "100%" }}>
         {props.collections.map((collection, i) =>
           collection.assets?.length > 0 ? (
             <div key={"collection" + i}>
