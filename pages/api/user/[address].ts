@@ -15,11 +15,11 @@ export default async function handle(
 
   switch (method) {
     case "GET":
-      if (token) {
-        verified = await verifyJwt(token, address);
-      }
       if (typeof address !== "string") {
         address = address[0];
+      }
+      if (token) {
+        verified = await verifyJwt(token, address);
       }
       if (verified) {
         user = await prisma.user.findUnique({
@@ -38,7 +38,9 @@ export default async function handle(
             status: true,
           },
         });
-        res.status(200).json({ status: "ok", user: user, authenticated: true });
+        res
+          .status(200)
+          .json({ status: "ok", user: user, authenticated: verified });
       } else {
         user = await prisma.user.findUnique({
           where: { address: address },
