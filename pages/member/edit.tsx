@@ -173,7 +173,7 @@ const MemberEdit: NextPage = () => {
           </Form.Group> */}
       {isAuthenticated ? (
         <>
-          {user.status === 2 ? (
+          {user.status === 2 && !router.query.welcome ? (
             <h3 style={{ color: "salmon" }}>Members must have BAYC or MAYC!</h3>
           ) : (
             <></>
