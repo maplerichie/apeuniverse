@@ -32,7 +32,6 @@
     "typescript": "4.5.5"
   },
   "prisma": {
-    "dev": "ts-node prisma/seed.ts",
-    "production": "ts-node prisma/seed-production.ts"
+    "seed": "ts-node prisma/seed.ts"
   }
 }

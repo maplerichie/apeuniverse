@@ -19,7 +19,15 @@ const Index = (props) => (
           {"！"}没有所谓BAYC大佬{"，"}
           就是几百个碰巧<strong>2021年5月</strong>上车的{"，"}并且还拿到现在的
         </p>
-        <cite>@apeuniverse.eth</cite>
+        <cite>
+          <a
+            href="https://twitter.com/apeuniverse_eth"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            @apeuniverse.eth
+          </a>
+        </cite>
       </div>
       <Link href="/home">
         <a className={styles.landing_enter}>Enter the Ape Universe</a>

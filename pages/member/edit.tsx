@@ -178,7 +178,7 @@ const MemberEdit: NextPage = () => {
           ) : (
             <></>
           )}
-          {user.status === 1 ? (
+          {user.status === 1 && !router.query.welcome ? (
             <div className={styles.pfpContainer} onClick={handleShow}>
               <Image
                 src={user.avatarURI || "/user.png"}
@@ -284,6 +284,8 @@ const MemberEdit: NextPage = () => {
               />
             </Form.Group>
 
+            <br />
+
             <Button
               variant="primary"
               style={{ float: "right" }}
@@ -292,9 +294,9 @@ const MemberEdit: NextPage = () => {
               {isLoading ? <Spinner animation="border" /> : "Submit"}
             </Button>
           </Form>
-          <Button variant="primary" onClick={isLoading ? null : updateAssets}>
+          {/* <Button variant="primary" onClick={isLoading ? null : updateAssets}>
             {isLoading ? <Spinner animation="border" /> : "Refresh assets"}
-          </Button>
+          </Button> */}
           {router.query.welcome ? (
             <Link href="/home">
               <a>Skip for now</a>
