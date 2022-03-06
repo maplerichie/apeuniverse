@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { ethers } from "ethers";
-import { Nav, Navbar, NavDropdown, Container, Button } from "react-bootstrap";
+import {
+  Nav,
+  Navbar,
+  NavDropdown,
+  Container,
+  Button,
+  Modal,
+  Spinner,
+} from "react-bootstrap";
 import Router from "next/router";
+import styles from "../styles/Common.module.scss";
 
 declare let window: any;
 
@@ -12,6 +21,7 @@ const logo = {
 const Header: React.FC<{}> = ({}) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [address, setAddress] = useState("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -21,6 +31,7 @@ const Header: React.FC<{}> = ({}) => {
   });
 
   const connect = async () => {
+    setShow(true);
     let _signer;
     let _address;
     const _provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -65,6 +76,7 @@ const Header: React.FC<{}> = ({}) => {
               })
                 .then((response) => response.json())
                 .then((res) => {
+                  setShow(false);
                   if (res.status === "ok") {
                     localStorage.setItem("token", res.token);
                     localStorage.setItem("id", res.user.id);
@@ -82,16 +94,20 @@ const Header: React.FC<{}> = ({}) => {
                   }
                 })
                 .catch((err) => {
+                  setShow(false);
                   alert(JSON.stringify(err));
                 });
             } catch (err) {
-              alert(JSON.stringify(err));
+              setShow(false);
+              alert(err.message);
             }
           } else {
-            alert("System error");
+            setShow(false);
+            alert("Something strange occured");
           }
         } else {
-          alert("Something strange occured. Please contact admin.");
+          setShow(false);
+          alert("Something strange occured");
         }
       })
       .catch((err) => {
@@ -153,6 +169,23 @@ const Header: React.FC<{}> = ({}) => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+
+      <Modal
+        show={show}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className={styles.loadingModal}
+      >
+        <Modal.Body>
+          <span>
+            Sign a message is not terrible. But it is dangerous that you don't
+            know what you signed!
+          </span>
+          <br />
+          <br />
+          <Spinner animation="border" />
+        </Modal.Body>
+      </Modal>
     </Navbar>
   );
 };

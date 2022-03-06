@@ -411,3 +411,12 @@
   color: #d361ef;
   text-transform: initial;
 }
+
+.loadingModal {
+  color: white;
+  text-align: center;
+  > div > div {
+    background-color: #0f0c29;
+    box-shadow: 1px 1px 20px 1px #cc00ff;
+  }
+}
