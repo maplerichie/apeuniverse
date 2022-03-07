@@ -44,3 +44,5 @@ prisma/migrations
 *lock*
 
 meta/*
+
+pages/private/
