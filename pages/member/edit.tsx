@@ -173,12 +173,7 @@ const MemberEdit: NextPage = () => {
           </Form.Group> */}
       {isAuthenticated ? (
         <>
-          {user.status === 2 && !router.query.welcome ? (
-            <h3 style={{ color: "salmon" }}>Members must have BAYC or MAYC!</h3>
-          ) : (
-            <></>
-          )}
-          {user.status === 1 && !router.query.welcome ? (
+          {user.status === 1 ? (
             <div className={styles.pfpContainer} onClick={handleShow}>
               <Image
                 src={user.avatarURI || "/user.png"}
@@ -188,7 +183,7 @@ const MemberEdit: NextPage = () => {
               />
             </div>
           ) : (
-            <></>
+            <h3 style={{ color: "salmon" }}>Members must have BAYC or MAYC!</h3>
           )}
           <Form style={{ width: "400px", maxWidth: "90vw" }}>
             <Form.Group className="mb-3" controlId="formName">
