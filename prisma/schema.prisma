@@ -30,7 +30,7 @@ model Asset {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   assetKey  String @unique
-  tokenId      Int?
+  tokenId      String?
   imageURI  String?
   collection   Collection?  @relation(fields: [collectionId],references: [id])
   collectionId  Int?

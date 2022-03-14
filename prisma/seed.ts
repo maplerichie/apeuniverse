@@ -55,7 +55,7 @@ const userData: Prisma.UserCreateInput[] = [
 
 const collectionData: Prisma.CollectionCreateInput[] = [
   {
-    address: "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+    address: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
     tokenURI: "ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/",
     name: "Bored Ape Yacht Club",
     website: "https://boredapeyachtclub.com/",
@@ -66,7 +66,7 @@ const collectionData: Prisma.CollectionCreateInput[] = [
     status: 1,
   },
   {
-    address: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
+    address: "0x60e4d786628fea6478f785a6d7e704777c86a7c6",
     tokenURI: "https://boredapeyachtclub.com/api/mutants/",
     name: "Mutant Ape Yacht Club",
     website: "https://boredapeyachtclub.com/",
@@ -81,15 +81,14 @@ const collectionData: Prisma.CollectionCreateInput[] = [
 const assetData: Prisma.AssetCreateInput[] = [
   {
     assetKey: "36f13D1",
-    tokenId: 1,
+    tokenId: "1",
     imageURI:
       "https://lh3.googleusercontent.com/ULjfyo4LJhtV3J9K7lu1xh0YZQBa6WHPp-cwlV2C9sUIyTpgSlv554mh_97fRXsziOIu9xwpukl5NQoDbkE3mlXlWR8zU7qcWQsxVg=w202",
-
     status: 1,
   },
   {
     assetKey: "36f13D2",
-    tokenId: 2,
+    tokenId: "2",
     imageURI:
       "https://lh3.googleusercontent.com/Czn9y9yAUpvuI6SGoVSnNe29_kZ84Ey_9saCrdpA7a5j2_8IWlUFSBM3_GMkjBPmbG8AS1jWtrzgQG4nCsyAlR_VtEI0fXMeKD8ILA=w202",
 
@@ -97,7 +96,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D3",
-    tokenId: 3,
+    tokenId: "3",
     imageURI:
       "https://lh3.googleusercontent.com/PmEaLtImJTLlgbJKgYenuMAo6e4UTM791ckWPx_zPixAEX6tDzcf5toRwYaRcXzY70W32JEgQjK14MFZZW16lZnbjEwHYN8kAI3GXQ=w202",
 
@@ -105,7 +104,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D4",
-    tokenId: 4,
+    tokenId: "4",
     imageURI:
       "https://lh3.googleusercontent.com/Q4uXff5hD6T91FlaDiqZTpMu-kEgwx6IcUHXsWF_Moq5u6VOvfqKuIXN2_StL78LNiA1YW3e16vnrLq_zqvfOMtK7PLy9AcKGxWr=w202",
 
@@ -113,7 +112,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D5",
-    tokenId: 5,
+    tokenId: "5",
     imageURI:
       "https://lh3.googleusercontent.com/KEDiL3ntKzr2Ta0H3TbcyfJL1OPgd6Y76iUhOqO5q9Rtr2zU-UKmZ4OvKlNF4z6LHcG7-P-xydFn8US1UT9XCg5iMfF6NLdhmt_FJyc=w202",
 
@@ -121,7 +120,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D6",
-    tokenId: 6,
+    tokenId: "6",
     imageURI:
       "https://lh3.googleusercontent.com/k_7lAkcWlwqCJuDWkQeeHNB5Uye8mfbJg_Wrx3g9ejfQ1KuYomf9MgOmzJw6iXzo0LNsx-xyv7AfZg7BQoCLtunTVH5SvZrrAkGy7w=w202",
 
@@ -129,7 +128,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D7",
-    tokenId: 7,
+    tokenId: "7",
     imageURI:
       "https://lh3.googleusercontent.com/EE4wtZaiUGD01e9O1S34q403G9zlJ4ByPspsTFn5G85yx0iwWbv3fGRbfqMs2yorB3OjFqKvTL6rTtP3mkrOSVRixYvhyAlV3ikBRQ=w202",
 
@@ -137,7 +136,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D8",
-    tokenId: 8,
+    tokenId: "8",
     imageURI:
       "https://lh3.googleusercontent.com/v0tOsDJK6Lwfy0Hw7gq7iB-vdmxOm6P9sL0XZIijWRb2K5wZir-JF6pCSkxcaO1yQTkJACiGWuBAPlk6gUrrL9E24EWJzN_VJUNf5A=w202",
 
@@ -145,7 +144,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D9",
-    tokenId: 9,
+    tokenId: "9",
     imageURI:
       "https://lh3.googleusercontent.com/RTfmPFKeHEk-KU2G4u44Q-t0QysY-5qKEntiNjWwC3sTvluRS-uiF-DAOGPM_Yfvd-cOoOpFSvUxYOxcTO5R7ohyPaLiD41Na6yAhQ=w202",
 
@@ -153,7 +152,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D11",
-    tokenId: 11,
+    tokenId: "11",
     imageURI:
       "https://lh3.googleusercontent.com/9zN9y4F70N43-zUCKwMYsbw_prZOaH_3ooJFHwXdA31vYQyyATXoSwDw4wqR_wFuR8fAjS3ZCwJBhfgEE0icvouysXicAdHF4rLN9Q=w202",
 
@@ -161,7 +160,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D12",
-    tokenId: 12,
+    tokenId: "12",
     imageURI:
       "https://lh3.googleusercontent.com/VjcjwhsEOK-JRYdhJ95mXoz6PB3yfnqYRZ8gi7O8_1NAUdUCaKlP-YvHS7LHrsPREHccEnWmtRJ1r2mTqymb8UfuKVTuv6iDc7u8NQ=w202",
 
@@ -169,7 +168,7 @@ const assetData: Prisma.AssetCreateInput[] = [
   },
   {
     assetKey: "36f13D13",
-    tokenId: 13,
+    tokenId: "13",
     imageURI:
       "https://lh3.googleusercontent.com/RTG6wfenJRDgAkYlP1Pjja2dOZS5ea-6DdRpKTBXE1-IJbvCtm2rX3cP7yNsY1w0FxJB4LJGOuUOqWcpEyqSL-qvkK1ZxEcpbTQ6=w202",
 

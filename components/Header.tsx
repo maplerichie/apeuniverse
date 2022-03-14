@@ -19,6 +19,7 @@ const logo = {
 };
 
 const Header: React.FC<{}> = ({}) => {
+  const openseaAssetsApi = "https://api.opensea.io/api/v1/assets";
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [address, setAddress] = useState("");
   const [show, setShow] = useState(false);
@@ -31,9 +32,6 @@ const Header: React.FC<{}> = ({}) => {
   });
 
   const connect = async () => {
-    setShow(true);
-    let _signer;
-    let _address;
     const _provider = new ethers.providers.Web3Provider(window.ethereum);
     await _provider.send("eth_requestAccounts", []);
     const network = await _provider.getNetwork();
@@ -41,77 +39,89 @@ const Header: React.FC<{}> = ({}) => {
       alert("Please connect to Ethereum Mainnet");
       return;
     }
-    _signer = _provider.getSigner();
-    _address = await _signer.getAddress();
+    let _signer = _provider.getSigner();
+    let _address = await _signer.getAddress();
     if (ethers.utils.isAddress(_address)) {
-      login(_signer, _address);
+      setShow(true);
+      login(_address);
     } else {
       alert("Something strange occured. Please contact admin.");
     }
   };
 
-  const login = async (_signer, _address) => {
-    fetch("/api/user/" + _address, {
+  const login = async (_address) => {
+    fetch("/api/collection?filter=true", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => response.json())
       .then(async (res) => {
-        if (res.status == "ok") {
-          if (res.nonce) {
-            let timestamp = new Date().getTime();
-            const message = `Welcome to ApeUniverse.\nNonce: ${res.nonce}\nTimestamp: ${timestamp}`;
-            try {
-              const signature = await _signer.signMessage(message);
-
-              let postObj = {
-                address: _address,
-                timestamp: timestamp,
-                signature: signature,
-              };
-              fetch("/api/user", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(postObj),
-              })
-                .then((response) => response.json())
-                .then((res) => {
-                  setShow(false);
-                  if (res.status === "ok") {
-                    localStorage.setItem("token", res.token);
-                    localStorage.setItem("id", res.user.id);
-                    localStorage.setItem("address", res.user.address);
-                    setAddress(res.user.address);
-                    setAuthenticated(true);
-                    if (res.welcome) {
-                      Router.push({
-                        pathname: "/member/edit",
-                        query: { welcome: res.welcome },
-                      });
-                    }
-                  } else {
-                    alert(JSON.stringify(res));
-                  }
-                })
-                .catch((err) => {
-                  setShow(false);
-                  alert(JSON.stringify(err));
-                });
-            } catch (err) {
-              setShow(false);
-              alert(err.message);
+        let requestUrl =
+          openseaAssetsApi +
+          "?limit=50&owner=" +
+          _address +
+          "&asset_contract_addresses=" +
+          res.join("&asset_contract_addresses=");
+        fetch(requestUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then(async (res) => {
+            let assets = [];
+            for (let asset of res.assets) {
+              assets.push({
+                address: asset.asset_contract.address,
+                imageURI: asset.image_url,
+                tokenId: asset.token_id,
+              });
             }
-          } else {
+            let postObj = {
+              userAddress: _address,
+              assets: assets,
+            };
+            fetch("/api/user", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(postObj),
+            })
+              .then((response) => response.json())
+              .then(async (res) => {
+                setShow(false);
+                if (res.status === "ok") {
+                  localStorage.setItem("token", res.token);
+                  localStorage.setItem("id", res.user.id);
+                  localStorage.setItem("address", res.user.address);
+                  setAddress(res.user.address);
+                  setAuthenticated(true);
+                  if (res.welcome) {
+                    Router.push({
+                      pathname: "/member/edit",
+                      query: { welcome: res.welcome },
+                    });
+                  }
+                } else {
+                  alert("Something strange occured");
+                }
+              })
+              .catch((err) => {
+                setShow(false);
+                alert("Something strange occured");
+                console.log("ERROR: POST api/user/ ==>", err);
+              });
+          })
+          .catch((err) => {
             setShow(false);
             alert("Something strange occured");
-          }
-        } else {
-          setShow(false);
-          alert("Something strange occured");
-        }
+            console.log("ERROR: GET openseaAssetsApi ==>", err);
+          });
       })
       .catch((err) => {
-        console.log("ERROR: GET api/user/[address] ===>", err);
+        setShow(false);
+        alert("Something strange occured");
+        console.log("ERROR: GET api/collection?filter=true ==>", err);
       });
   };
 
@@ -177,10 +187,7 @@ const Header: React.FC<{}> = ({}) => {
         className={styles.loadingModal}
       >
         <Modal.Body>
-          <span>
-            Sign a message is not terrible. But it is dangerous that you
-            don&apos;t know what you signed!
-          </span>
+          <span>Welcome to ApeUniverse!</span>
           <br />
           <br />
           <Spinner animation="border" />

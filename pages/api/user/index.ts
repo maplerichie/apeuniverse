@@ -10,6 +10,7 @@ export default async function handle(
   const { method, body } = req;
   let token = req.headers.authorization?.slice(7);
   let verified;
+  let haveApe = false;
 
   switch (method) {
     case "GET":
@@ -28,41 +29,77 @@ export default async function handle(
       res.status(200).json(users);
       break;
     case "POST":
-      let { address, timestamp, signature } = body;
+      let { userAddress, assets } = body;
       let user = await prisma.user.findUnique({
-        where: { address: address },
+        where: { address: userAddress },
         select: { id: true, address: true, nonce: true, status: true },
       });
-      let signValid = verifyMessage(user.nonce, timestamp, signature, address);
-      if (signValid) {
-        let welcome = false;
-        if (user.status === 0) {
-          welcome = true;
-          let ens = await getEns(address);
+      if (!user) {
+        let nonce = generateNonce();
+        user = await prisma.user.create({
+          data: {
+            address: userAddress,
+            nonce: nonce,
+          },
+        });
+      }
+      let welcome = false;
+      if (user.status === 0) {
+        welcome = true;
+        let ens = await getEns(userAddress);
+        await prisma.user.update({
+          where: {
+            address: user.address,
+          },
+          data: {
+            ens: ens ? ens : "",
+          },
+          select: { id: true, address: true },
+        });
+      }
+      for (let asset of assets) {
+        if (
+          !haveApe &&
+          (asset.address.toLowerCase() ==
+            "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D".toLowerCase() ||
+            asset.address.toLowerCase() ==
+              "0x60E4d786628Fea6478F785A6d7e704777c86a7c6".toLowerCase())
+        ) {
           await prisma.user.update({
             where: {
-              address: user.address,
+              address: userAddress,
             },
             data: {
-              status: 2,
-              ens: ens ? ens : "",
+              status: 1,
             },
-            select: { id: true, address: true },
           });
-
-          fetch(process.env.DOMAIN_URL + "api/asset/new", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: user.id, address: address }),
-          });
+          haveApe = true;
         }
-        const token = await signJwt(user.id, user.address);
-        res
-          .status(200)
-          .json({ status: "ok", user: user, welcome: welcome, token: token });
-      } else {
-        res.status(403).json({ status: "error", message: "Invalid signature" });
+        const collection = await prisma.collection.findUnique({
+          where: {
+            address: asset.address,
+          },
+        });
+        let assetObj = {
+          assetKey: asset.address.slice(-8) + asset.tokenId.padStart(8, "0"),
+          imageURI: asset.imageURI,
+          collectionId: collection.id,
+          tokenId: asset.tokenId,
+          status: haveApe ? 1 : 0,
+          userId: user.id,
+        };
+        await prisma.asset.upsert({
+          where: {
+            assetKey: assetObj.assetKey,
+          },
+          update: assetObj,
+          create: assetObj,
+        });
       }
+      token = await signJwt(user.id, user.address);
+      res
+        .status(200)
+        .json({ status: "ok", user: user, welcome: welcome, token: token });
       break;
     case "PUT":
       if (token) {

@@ -5,31 +5,50 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const collections = await prisma.collection.findMany({
-    where: { status: 1 },
-    select: {
-      id: true,
-      address: true,
-      name: true,
-      website: true,
-      discord: true,
-      twitter: true,
-      opensea: true,
-      looksrare: true,
-    },
-  });
-  for (let i = 0; i < collections.length; i++) {
-    const assets = await prisma.asset.findMany({
-      where: { status: 1, collectionId: collections[i].id },
+  let { filter } = req.query;
+  let collections = [];
+  if (filter) {
+    if (typeof filter !== "string") {
+      filter = filter[0];
+    }
+    collections = await prisma.collection.findMany({
+      where: { status: 1 },
       select: {
-        assetKey: true,
-        tokenId: true,
-        imageURI: true,
-        collectionId: true,
-        owner: true,
+        address: true,
       },
     });
-    collections[i]["assets"] = assets;
+    let temp = [];
+    for (let i = 0; i < collections.length; i++) {
+      temp.push(collections[i]["address"]);
+    }
+    collections = temp;
+  } else {
+    collections = await prisma.collection.findMany({
+      where: { status: 1 },
+      select: {
+        id: true,
+        address: true,
+        name: true,
+        website: true,
+        discord: true,
+        twitter: true,
+        opensea: true,
+        looksrare: true,
+      },
+    });
+    for (let i = 0; i < collections.length; i++) {
+      const assets = await prisma.asset.findMany({
+        where: { status: 1, collectionId: collections[i].id },
+        select: {
+          assetKey: true,
+          tokenId: true,
+          imageURI: true,
+          collectionId: true,
+          owner: true,
+        },
+      });
+      collections[i]["assets"] = assets;
+    }
   }
   res.status(200).json(collections);
 }

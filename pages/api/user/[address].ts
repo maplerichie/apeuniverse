@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import { generateNonce } from "../../../lib/ethers";
 import { verifyJwt } from "../../../lib/jwt";
 
 export default async function handle(
@@ -42,33 +41,7 @@ export default async function handle(
           .status(200)
           .json({ status: "ok", user: user, authenticated: verified });
       } else {
-        user = await prisma.user.findUnique({
-          where: { address: address },
-          select: { address: true },
-        });
-        if (user) {
-          let nonce = generateNonce();
-          await prisma.user.update({
-            where: {
-              address: user.address,
-            },
-            data: {
-              address: address,
-              nonce: nonce,
-            },
-          });
-          res.status(202).json({ status: "ok", nonce: nonce });
-          // }
-        } else {
-          let nonce = generateNonce();
-          await prisma.user.create({
-            data: {
-              address: address,
-              nonce: nonce,
-            },
-          });
-          res.status(201).json({ status: "ok", nonce: nonce });
-        }
+        res.status(404).json({ message: "User not found" });
       }
       break;
     default:
