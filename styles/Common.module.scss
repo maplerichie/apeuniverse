@@ -438,6 +438,15 @@
   background-color: transparent;
 }
 
+.baycCardGlow {
+  min-width: 128px;
+  width: 192px;
+  max-width: 30vw;
+  margin: 8px;
+  background-color: transparent;
+  box-shadow: 1px 1px 20px 1px #0fa;
+}
+
 .cardTitle {
   display: flex;
   justify-content: space-between;

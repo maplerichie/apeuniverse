@@ -325,7 +325,12 @@ const ApeCoin: NextPage = () => {
       </div>
       <Container fluid className={styles.cardGrid}>
         {assets.map((asset) => (
-          <Card className={styles.baycCard} key={asset.id}>
+          <Card
+            className={
+              asset.sell_orders != null ? styles.baycCardGlow : styles.baycCard
+            }
+            key={asset.id}
+          >
             <Card.Img variant="top" src={asset.image_preview_url} />
             <Card.Body>
               <Card.Title className={styles.cardTitle}>
