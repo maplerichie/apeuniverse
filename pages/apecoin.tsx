@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import { Button, Card, Container, Modal, Spinner } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Container,
+  Modal,
+  Spinner,
+  InputGroup,
+  FormControl,
+} from "react-bootstrap";
 import { ethers } from "ethers";
 import Layout from "../components/Layout";
 import styles from "../styles/Common.module.scss";
@@ -23,6 +31,7 @@ const ApeCoin: NextPage = () => {
     abi,
     provider
   );
+  const [timer, setTimer] = useState(null);
   const [assets, setAssets] = useState([]);
   const [page, setPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -202,7 +211,7 @@ const ApeCoin: NextPage = () => {
     9897, 9899, 9902, 9904, 9906, 9907, 9917, 9918, 9919, 9922, 9936, 9944,
     9951, 9953, 9957, 9959, 9962, 9971, 9975, 9977, 9981, 9983, 9991,
   ];
-  let lastPage = Math.ceil(unclaimed.length / pageSize);
+  let lastPage = Math.floor(unclaimed.length / pageSize);
 
   const paginate = (array, page_size, page_number) => {
     return array.slice(
@@ -212,13 +221,34 @@ const ApeCoin: NextPage = () => {
   };
 
   const nextPage = () => {
-    setLoading(true);
     setPage(page + 1);
+    setTempPage(page + 1);
   };
 
   const previousPage = () => {
-    setLoading(true);
     setPage(page - 1);
+    setTempPage(page - 1);
+  };
+
+  const [tempPage, setTempPage] = useState(0);
+
+  const jumpPage = (e) => {
+    e.preventDefault();
+    let p = parseInt(e.target.value) || 0;
+    setTempPage(p);
+    if (timer) {
+      clearTimeout(timer);
+      setTimer(null);
+    }
+    setTimer(
+      setTimeout(() => {
+        if (p >= 0 && p <= lastPage) {
+          setPage(p);
+        } else {
+          return;
+        }
+      }, 750)
+    );
   };
 
   const checkClaimed = async (id, isOpensea) => {
@@ -240,7 +270,12 @@ const ApeCoin: NextPage = () => {
 
   useEffect(() => {
     async function os() {
+      setLoading(true);
       let tokenIds = paginate(unclaimed, pageSize, page);
+      if (tokenIds.length <= 0) {
+        setLoading(false);
+        return;
+      }
       let requestUrl =
         assetApi +
         "?limit=50&include_orders=true&asset_contract_address=" +
@@ -269,7 +304,17 @@ const ApeCoin: NextPage = () => {
           </Button>
         ) : (
           <></>
-        )}{" "}
+        )}
+        <span style={{ margin: "0 16px" }}>
+          <InputGroup>
+            <FormControl
+              value={tempPage}
+              style={{ width: "56px" }}
+              onChange={jumpPage}
+            />
+            <InputGroup.Text>/{lastPage}</InputGroup.Text>
+          </InputGroup>
+        </span>
         {page != lastPage ? (
           <Button variant="primary" size="lg" onClick={nextPage}>
             Next
@@ -324,7 +369,17 @@ const ApeCoin: NextPage = () => {
           </Button>
         ) : (
           <></>
-        )}{" "}
+        )}
+        <span style={{ margin: "0 16px" }}>
+          <InputGroup>
+            <FormControl
+              value={tempPage}
+              style={{ width: "56px" }}
+              onChange={jumpPage}
+            />
+            <InputGroup.Text>/{lastPage}</InputGroup.Text>
+          </InputGroup>
+        </span>
         {page != lastPage ? (
           <Button variant="primary" size="lg" onClick={nextPage}>
             Next
