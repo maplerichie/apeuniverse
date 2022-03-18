@@ -330,15 +330,18 @@ const ApeCoin: NextPage = () => {
             <Card.Body>
               <Card.Title className={styles.cardTitle}>
                 <span>#{asset.token_id}</span>
-                <span>
-                  {asset.sell_orders != null
-                    ? parseFloat(
-                        ethers.utils.formatEther(
-                          ethers.BigNumber.from(asset.sell_orders[0].base_price)
-                        )
-                      ).toFixed(2) + "ETH"
-                    : "Delisted"}
-                </span>
+                {asset.sell_orders != null ? (
+                  <span style={{ color: "#0fa" }}>
+                    {parseFloat(
+                      ethers.utils.formatEther(
+                        ethers.BigNumber.from(asset.sell_orders[0].base_price)
+                      )
+                    ).toFixed(2)}
+                    ETH
+                  </span>
+                ) : (
+                  <span style={{ color: "grey" }}>Delisted</span>
+                )}
               </Card.Title>
               <Card.Footer
                 style={{ justifyContent: "space-around", display: "flex" }}
