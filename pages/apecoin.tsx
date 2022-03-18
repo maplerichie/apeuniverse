@@ -403,12 +403,12 @@ const ApeCoin: NextPage = () => {
       </Modal>
       <Modal
         show={prompt}
-        backdrop="static"
         size="sm"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className={styles.loadingModalA}
       >
+        <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <p>Sorry, BAYC #{selectedTokenId} already used to claim ApeCoin.</p>
           <Button
