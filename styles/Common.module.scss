@@ -423,3 +423,35 @@
     box-shadow: 1px 1px 20px 1px #cc00ff;
   }
 }
+
+.cardGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.baycCard {
+  min-width: 128px;
+  width: 192px;
+  max-width: 30vw;
+  margin: 8px;
+  background-color: transparent;
+}
+
+.cardTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pageButtons {
+  text-align: center;
+}
+
+.loadingModalA {
+  color: white;
+  text-align: center;
+  > div > div {
+    background-color: #0f0c29;
+  }
+}
