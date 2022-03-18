@@ -388,6 +388,7 @@ const ApeCoin: NextPage = () => {
           <></>
         )}
       </div>
+
       <Modal
         show={loading}
         backdrop="static"
@@ -401,8 +402,10 @@ const ApeCoin: NextPage = () => {
           <p>Fetching</p>
         </Modal.Body>
       </Modal>
+
       <Modal
         show={prompt}
+        onHide={() => setPrompt(false)}
         size="sm"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -411,18 +414,20 @@ const ApeCoin: NextPage = () => {
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
           <p>Sorry, BAYC #{selectedTokenId} already used to claim ApeCoin.</p>
-          <Button
-            variant="secondary"
-            onClick={() => openUrl(selectedTokenId, true)}
-          >
-            <img alt="OpenSea" src="/opensea.png" width="32" />
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => openUrl(selectedTokenId, false)}
-          >
-            <img alt="looksrare" src="/looksrare.png" width="32" />
-          </Button>
+          <div>
+            <Button
+              variant="secondary"
+              onClick={() => openUrl(selectedTokenId, true)}
+            >
+              <img alt="OpenSea" src="/opensea.png" width="32" />
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => openUrl(selectedTokenId, false)}
+            >
+              <img alt="looksrare" src="/looksrare.png" width="32" />
+            </Button>
+          </div>
         </Modal.Body>
       </Modal>
     </Layout>
