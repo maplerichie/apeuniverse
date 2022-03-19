@@ -137,14 +137,20 @@ const ApeCoin: NextPage = () => {
         address +
         "&token_ids=" +
         tokenIds.join("&token_ids=");
-      let res = await fetch(requestUrl, {
+      await fetch(requestUrl, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-      }).then((response) => response.json());
-      setAssets(res.assets);
-      setLoading(false);
+      })
+        .then((response) => response.json())
+        .then((res) => {
+          setAssets(res.assets);
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+        });
     }
     os();
   }, [unclaimed, page]);
