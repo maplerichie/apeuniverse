@@ -433,17 +433,19 @@
 .baycCard {
   min-width: 128px;
   width: 192px;
-  max-width: 30vw;
+  max-width: 40vw;
   margin: 8px;
   background-color: transparent;
+  border-radius: 8px;
 }
 
 .baycCardGlow {
   min-width: 128px;
   width: 192px;
-  max-width: 30vw;
+  max-width: 40vw;
   margin: 8px;
   background-color: transparent;
+  border-radius: 8px;
   box-shadow: 1px 1px 20px 1px #0fa;
 }
 
