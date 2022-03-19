@@ -14,23 +14,23 @@ import Layout from "../components/Layout";
 import styles from "../styles/Common.module.scss";
 
 declare let window: any;
+const assetApi = "https://api.opensea.io/api/v1/assets";
+const listingApi =
+  "https://api.opensea.io/api/v1/asset/{asset_contract_address}/{token_id}/listings";
+const osUrl = "https://opensea.io/assets/";
+const lrUrl = "https://looksrare.org/collections/";
+const address = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
+const provider = new ethers.providers.JsonRpcProvider(
+  "https://eth-mainnet.alchemyapi.io/v2/TqeAXaheP1_z1QOWUvOvVjcQl4KvxP0i"
+);
+const abi = ["function alphaClaimed(uint256) public view returns (bool)"];
+const contract = new ethers.Contract(
+  "0x025c6da5bd0e6a5dd1350fda9e3b6a614b205a1f",
+  abi,
+  provider
+);
 
 const ApeCoin: NextPage = () => {
-  const assetApi = "https://api.opensea.io/api/v1/assets";
-  const listingApi =
-    "https://api.opensea.io/api/v1/asset/{asset_contract_address}/{token_id}/listings";
-  const osUrl = "https://opensea.io/assets/";
-  const lrUrl = "https://looksrare.org/collections/";
-  const address = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
-  const provider = new ethers.providers.JsonRpcProvider(
-    "https://eth-mainnet.alchemyapi.io/v2/TqeAXaheP1_z1QOWUvOvVjcQl4KvxP0i"
-  );
-  const abi = ["function alphaClaimed(uint256) public view returns (bool)"];
-  const contract = new ethers.Contract(
-    "0x025c6da5bd0e6a5dd1350fda9e3b6a614b205a1f",
-    abi,
-    provider
-  );
   const [timer, setTimer] = useState(null);
   const [assets, setAssets] = useState([]);
   const [page, setPage] = useState(0);
