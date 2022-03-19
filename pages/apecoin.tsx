@@ -133,7 +133,7 @@ const ApeCoin: NextPage = () => {
       }
       let requestUrl =
         assetApi +
-        "?limit=50&include_orders=true&asset_contract_address=" +
+        "?limit=50&order_direction=asc&include_orders=true&asset_contract_address=" +
         address +
         "&token_ids=" +
         tokenIds.join("&token_ids=");
