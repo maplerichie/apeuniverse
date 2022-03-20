@@ -19,24 +19,24 @@ model User {
   wechat    String?
   discord   String?
   message   String?
-  nonce Int?
-  avatarURI    String?
-  status    Int  @default(0)
+  nonce     Int?
+  avatarURI String?
+  status    Int      @default(0)
   assets    Asset[]
 }
 
 model Asset {
-  id           Int        @id @default(autoincrement())
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  assetKey  String @unique
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  assetKey     String      @unique
   tokenId      String?
-  imageURI  String?
-  collection   Collection?  @relation(fields: [collectionId],references: [id])
-  collectionId  Int?
-  owner         User?      @relation(fields: [userId], references: [id])
+  imageURI     String?
+  collection   Collection? @relation(fields: [collectionId],references: [id])
+  collectionId Int?
+  owner        User?       @relation(fields: [userId], references: [id])
   userId       Int?
-  status       Int        @default(0)
+  status       Int         @default(0)
 }
 
 model Collection {
@@ -52,6 +52,25 @@ model Collection {
   twitter   String?
   opensea   String?
   looksrare String?
-  assets     Asset[]
-  status       Int        @default(0)
+  assets    Asset[]
+  status    Int      @default(0)
+}
+
+model Bayc {
+  tokenId           Int        @id
+  apecoinClaimed    Boolean    @default(false)
+  m1mutated         Boolean    @default(false)
+  m2mutated         Boolean    @default(false)
+}
+
+model Mayc {
+  tokenId           Int        @id
+  apecoinClaimed    Boolean    @default(false)
+  minted            Boolean    @default(false)
+}
+
+model Bakc {
+  tokenId           Int        @id
+  apecoinClaimed    Boolean    @default(false)
+  minted            Boolean    @default(false)
 }

@@ -10,27 +10,25 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { ethers } from "ethers";
-import Layout from "../components/Layout";
-import styles from "../styles/Common.module.scss";
+import Layout from "../../components/Layout";
+import styles from "../../styles/Common.module.scss";
 
 declare let window: any;
 const assetApi = "https://api.opensea.io/api/v1/assets";
-const listingApi =
-  "https://api.opensea.io/api/v1/asset/{asset_contract_address}/{token_id}/listings";
 const osUrl = "https://opensea.io/assets/";
 const lrUrl = "https://looksrare.org/collections/";
-const address = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
+const address = "0x60e4d786628fea6478f785a6d7e704777c86a7c6";
 const provider = new ethers.providers.JsonRpcProvider(
-  "https://eth-mainnet.alchemyapi.io/v2/TqeAXaheP1_z1QOWUvOvVjcQl4KvxP0i"
+  "https://rpc.ankr.com/eth"
 );
-const abi = ["function alphaClaimed(uint256) public view returns (bool)"];
+const abi = ["function betaClaimed(uint256) public view returns (bool)"];
 const contract = new ethers.Contract(
   "0x025c6da5bd0e6a5dd1350fda9e3b6a614b205a1f",
   abi,
   provider
 );
 
-const ApeCoin: NextPage = () => {
+const MAYC: NextPage = () => {
   const [timer, setTimer] = useState(null);
   const [assets, setAssets] = useState([]);
   const [page, setPage] = useState(0);
@@ -80,27 +78,33 @@ const ApeCoin: NextPage = () => {
   };
 
   const refreshUnclaimed = async () => {
-    let res = await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((response) => response.json());
+    let res = await fetch(
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin?type=1&filter=yes",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((response) => response.json());
     setUnclaimed(res.data);
     setLastPage(Math.floor(res.data.length / pageSize));
   };
 
   const checkClaimed = async (id, isOpensea) => {
-    let claimed = await contract.alphaClaimed(parseInt(id));
+    let claimed = await contract.betaClaimed(parseInt(id));
     if (!claimed) {
       openUrl(id, isOpensea);
     } else {
       await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ tokenId: id }),
+        body: JSON.stringify({
+          type: 1,
+          tokenId: parseInt(id),
+        }),
       }).then((response) => response.json());
       setSelectedTokenId(id);
       setPrompt(true);
@@ -126,7 +130,7 @@ const ApeCoin: NextPage = () => {
   useEffect(() => {
     async function os() {
       setLoading(true);
-      let tokenIds = paginate(unclaimed, pageSize, page);
+      let tokenIds = paginate(unclaimed, pageSize, page).map((k) => k.tokenId);
       if (tokenIds.length <= 0) {
         setLoading(false);
         return;
@@ -173,7 +177,7 @@ const ApeCoin: NextPage = () => {
           />{" "}
           to claim&nbsp;
         </div>
-        ({unclaimed.length} BAYC)
+        ({unclaimed.length} MAYC)
       </h1>
       <div className={styles.pageButtons}>
         {page != 0 ? (
@@ -299,7 +303,7 @@ const ApeCoin: NextPage = () => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <p>Sorry, BAYC #{selectedTokenId} already used to claim ApeCoin.</p>
+          <p>Sorry, MAYC #{selectedTokenId} already used to claim ApeCoin.</p>
           <div>
             <Button
               variant="secondary"
@@ -320,4 +324,4 @@ const ApeCoin: NextPage = () => {
   );
 };
 
-export default ApeCoin;
+export default MAYC;

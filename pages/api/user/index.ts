@@ -9,7 +9,7 @@ export default async function handle(
 ) {
   const { method, body } = req;
   let token = req.headers.authorization?.slice(7);
-  let verified;
+  let verified = false;
   let haveApe = false;
 
   switch (method) {
