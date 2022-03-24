@@ -85,7 +85,6 @@ export default async function handle(
           imageURI: asset.imageURI,
           collectionId: collection.id,
           tokenId: asset.tokenId,
-          status: haveApe ? 1 : 0,
           userId: user.id,
         };
         await prisma.asset.upsert({
@@ -94,6 +93,16 @@ export default async function handle(
           },
           update: assetObj,
           create: assetObj,
+        });
+      }
+      if (haveApe) {
+        await prisma.asset.updateMany({
+          where: {
+            userId: user.id,
+          },
+          data: {
+            status: 1,
+          },
         });
       }
       token = await signJwt(user.id, user.address);

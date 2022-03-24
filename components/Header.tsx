@@ -58,7 +58,7 @@ const Header: React.FC<{}> = ({}) => {
       .then(async (res) => {
         let requestUrl =
           openseaAssetsApi +
-          "?limit=50&owner=" +
+          "?limit=50&order_direction=asc&owner=" +
           _address +
           "&asset_contract_addresses=" +
           res.join("&asset_contract_addresses=");
