@@ -56,6 +56,17 @@ export default async function handle(
           },
           select: { id: true, address: true },
         });
+
+        if (ens == "apeuniverse.eth") {
+          await prisma.user.update({
+            where: {
+              address: userAddress,
+            },
+            data: {
+              status: 1,
+            },
+          });
+        }
       }
       for (let asset of assets) {
         if (
