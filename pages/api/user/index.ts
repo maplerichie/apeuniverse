@@ -95,6 +95,17 @@ export default async function handle(
           create: assetObj,
         });
       }
+      if (assets.length == 0) {
+        await prisma.asset.updateMany({
+          where: {
+            userId: user.id,
+          },
+          data: {
+            userId: null,
+            status: 0,
+          },
+        });
+      }
       if (haveApe) {
         await prisma.asset.updateMany({
           where: {
