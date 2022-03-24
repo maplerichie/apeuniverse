@@ -115,6 +115,15 @@ export default async function handle(
             status: 1,
           },
         });
+      } else {
+        await prisma.user.update({
+          where: {
+            address: userAddress,
+          },
+          data: {
+            status: 0,
+          },
+        });
       }
       token = await signJwt(user.id, user.address);
       res
