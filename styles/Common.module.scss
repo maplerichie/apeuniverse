@@ -316,15 +316,26 @@
   padding: 4px;
 }
 
+// .avatarCard {
+//   perspective: 1000px;
+//   width: 150px;
+//   max-width: 40vw;
+//   height: 150px;
+//   max-height: 40vw;
+//   margin: 8px;
+//   z-index: 1;
+// }
+
 .avatarCard {
-  // background-color: transparent;
   perspective: 1000px;
-  width: 150px;
-  max-width: 40vw;
-  height: 150px;
-  max-height: 40vw;
-  margin: 8px;
+  width: 120px;
+  max-width: 31vw;
+  height: 120px;
+  max-height: 31vw;
+  margin: 6px;
   z-index: 1;
+  box-shadow: 1px 1px 10px 1px rgb(204, 0, 255);
+  border-radius: 50%;
 }
 
 .avatarInner {
@@ -345,40 +356,57 @@
 }
 
 .avatarImage {
-  border-radius: 75px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  position: relative !important;
-  top: 0;
-  pointer-events: none;
+  border-radius: 50%;
+  opacity: 25%;
 }
 
 .avatarInfo {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background-color: #0f0c29;
-  width: 210px;
-  max-width: 50vw;
-  height: 210px;
-  max-height: 50vw;
-  color: white;
-  transform: rotateX(180deg);
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   word-break: break-all;
-  padding: 8px;
-  box-shadow: 1px 1px 10px 2px rgb(204, 0, 255);
-  position: absolute;
-  top: -30px;
-  left: -30px;
+  text-align: center;
+  height: 100%;
+  padding: 4px;
 }
+
+// .avatarImage {
+//   border-radius: 75px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: flex-start;
+//   flex-wrap: wrap;
+//   position: relative !important;
+//   top: 0;
+//   pointer-events: none;
+// }
+
+// .avatarInfo {
+//   -webkit-backface-visibility: hidden;
+//   backface-visibility: hidden;
+//   background-color: #0f0c29;
+//   width: 210px;
+//   max-width: 50vw;
+//   height: 210px;
+//   max-height: 50vw;
+//   color: white;
+//   transform: rotateX(180deg);
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   word-break: break-all;
+//   padding: 8px;
+//   box-shadow: 1px 1px 10px 2px rgb(204, 0, 255);
+//   position: absolute;
+//   top: -30px;
+//   left: -30px;
+// }
 
 .avatarSocial {
   display: flex;
+  z-index: 10;
 }
 
 .userMessage {

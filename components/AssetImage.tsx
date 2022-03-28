@@ -25,7 +25,9 @@ const AssetImage: React.FC<{ asset: Asset; collection: Collection }> = ({
             ? asset.owner.ens
             : asset.owner.name
             ? asset.owner.name
-            : asset.owner.address}
+            : asset.owner.address.slice(0, 6) +
+              ".." +
+              asset.owner.address.slice(-4)}
         </div>
       </div>
     </div>
