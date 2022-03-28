@@ -142,13 +142,13 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 10vh;
+  padding: 5vh;
 }
 
 .blockquote {
   background: #2125297a;
   border: 1px solid rgb(155 60 171);
-  padding: 1em 2em;
+  padding: 1em 1em;
   color: white;
   font-family: Tahoma, sans-serif;
   font-size: 2rem;
@@ -185,6 +185,7 @@
 .landing_enter,
 .landing_enter:hover {
   margin-top: 1.5em;
+  text-align: center;
   font-size: 2em;
   color: #fff;
   text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa,
@@ -329,9 +330,9 @@
 .avatarCard {
   perspective: 1000px;
   width: 120px;
-  max-width: 31vw;
+  max-width: calc(31vw - 12px);
   height: 120px;
-  max-height: 31vw;
+  max-height: calc(31vw - 12px);
   margin: 6px;
   z-index: 1;
   box-shadow: 1px 1px 10px 1px rgb(204, 0, 255);
