@@ -11,7 +11,7 @@ const AssetImage: React.FC<{
     <div className={styles.assetCard}>
       <div className={styles.assetInner}>
         <ImageWithFallback
-          src={asset.imageURI}
+          src={asset.imageURI + "=w200"}
           alt={collection.name + "#" + asset.tokenId}
           fallbackSrc={"./nft.png"}
           layout="fill"
