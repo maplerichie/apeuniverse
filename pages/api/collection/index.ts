@@ -26,8 +26,6 @@ export default async function handle(
     collections = await prisma.collection.findMany({
       where: { status: 1 },
       select: {
-        id: true,
-        address: true,
         name: true,
         website: true,
         discord: true,
@@ -40,11 +38,15 @@ export default async function handle(
       const assets = await prisma.asset.findMany({
         where: { status: 1, collectionId: collections[i].id },
         select: {
-          assetKey: true,
           tokenId: true,
           imageURI: true,
-          collectionId: true,
-          owner: true,
+          owner: {
+            select: {
+              ens: true,
+              name: true,
+              address: true,
+            },
+          },
         },
       });
       collections[i]["assets"] = assets;

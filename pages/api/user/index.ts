@@ -22,7 +22,7 @@ export default async function handle(
           ens: true,
           twitter: true,
           // discord: true,
-          message: true,
+          // message: true,
           avatarURI: true,
         },
       });

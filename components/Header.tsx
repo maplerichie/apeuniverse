@@ -23,6 +23,7 @@ const Header: React.FC<{}> = ({}) => {
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [address, setAddress] = useState("");
   const [show, setShow] = useState(false);
+  let assets = [];
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
@@ -43,85 +44,89 @@ const Header: React.FC<{}> = ({}) => {
     let _address = await _signer.getAddress();
     if (ethers.utils.isAddress(_address)) {
       setShow(true);
-      login(_address);
+      assets = [];
+      getCollections(_address);
     } else {
       alert("Something strange occured. Please contact admin.");
     }
   };
 
+  const getCollections = async (_address) => {
+    let res = await (
+      await fetch(
+        process.env.NEXT_PUBLIC_DOMAIN_URL + "api/collection?filter=true",
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+    ).json();
+    let requestUrl =
+      openseaAssetsApi +
+      "?limit=50&owner=" +
+      // "?limit=50&order_direction=asc&owner=" +
+      _address +
+      "&asset_contract_addresses=" +
+      res.join("&asset_contract_addresses=");
+    getAssetsFromOpenSea(_address, requestUrl);
+  };
+
+  const getAssetsFromOpenSea = async (_address, url) => {
+    let res = await (
+      await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+    ).json();
+    for (let asset of res.assets) {
+      assets.push({
+        address: asset.asset_contract.address,
+        imageURI: asset.image_url,
+        tokenId: asset.token_id,
+      });
+    }
+    if (res.next) {
+      getAssetsFromOpenSea(_address, url + "&cursor=" + res.next);
+    } else {
+      login(_address);
+    }
+  };
+
   const login = async (_address) => {
-    fetch("/api/collection?filter=true", {
-      method: "GET",
+    let postObj = {
+      userAddress: _address,
+      assets: assets,
+    };
+    fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/user", {
+      method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(postObj),
     })
       .then((response) => response.json())
       .then(async (res) => {
-        let requestUrl =
-          openseaAssetsApi +
-          "?limit=50&order_direction=asc&owner=" +
-          _address +
-          "&asset_contract_addresses=" +
-          res.join("&asset_contract_addresses=");
-        fetch(requestUrl, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((response) => response.json())
-          .then(async (res) => {
-            let assets = [];
-            for (let asset of res.assets) {
-              assets.push({
-                address: asset.asset_contract.address,
-                imageURI: asset.image_url,
-                tokenId: asset.token_id,
-              });
-            }
-            let postObj = {
-              userAddress: _address,
-              assets: assets,
-            };
-            fetch("/api/user", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(postObj),
-            })
-              .then((response) => response.json())
-              .then(async (res) => {
-                setShow(false);
-                if (res.status === "ok") {
-                  localStorage.setItem("token", res.token);
-                  localStorage.setItem("id", res.user.id);
-                  localStorage.setItem("address", res.user.address);
-                  setAddress(res.user.address);
-                  setAuthenticated(true);
-                  if (res.welcome) {
-                    Router.push({
-                      pathname: "/member/edit",
-                      query: { welcome: res.welcome },
-                    });
-                  }
-                } else {
-                  alert("Something strange occured");
-                }
-              })
-              .catch((err) => {
-                setShow(false);
-                alert("Something strange occured");
-                console.log("ERROR: POST api/user/ ==>", err);
-              });
-          })
-          .catch((err) => {
-            setShow(false);
-            alert("Something strange occured");
-            console.log("ERROR: GET openseaAssetsApi ==>", err);
-          });
+        setShow(false);
+        if (res.status === "ok") {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("id", res.user.id);
+          localStorage.setItem("address", res.user.address);
+          setAddress(res.user.address);
+          setAuthenticated(true);
+          if (res.welcome) {
+            Router.push({
+              pathname: "/member/edit",
+              query: { welcome: res.welcome },
+            });
+          }
+        } else {
+          alert("Something strange occured");
+        }
       })
       .catch((err) => {
         setShow(false);
         alert("Something strange occured");
-        console.log("ERROR: GET api/collection?filter=true ==>", err);
+        console.log("ERROR: POST api/user/ ==>", err);
       });
   };
 

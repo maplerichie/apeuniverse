@@ -3,12 +3,12 @@ import ImageWithFallback from "./ImageWithFallback";
 import { Asset, Collection } from "../models";
 import styles from "../styles/Common.module.scss";
 
-const AssetImage: React.FC<{ asset: Asset; collection: Collection }> = ({
-  asset,
-  collection,
-}) => {
+const AssetImage: React.FC<{
+  asset: Asset;
+  collection: Collection;
+}> = ({ asset, collection }) => {
   return (
-    <div key={asset.assetKey} className={styles.assetCard}>
+    <div className={styles.assetCard}>
       <div className={styles.assetInner}>
         <ImageWithFallback
           src={asset.imageURI}
