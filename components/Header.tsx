@@ -151,12 +151,37 @@ const Header: React.FC<{}> = ({}) => {
         >
           {/* <Nav className="me-auto"> */}
           <Nav style={{ alignItems: "center" }}>
+            <NavDropdown title="$APE Claim" id="collasible-nav-dropdown">
+              <NavDropdown.Item
+                href="https://www.apecoin.com/claim"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Claim now!
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/apecoin/bayc">BAYC</NavDropdown.Item>
+              <NavDropdown.Item href="/apecoin/mayc">MAYC</NavDropdown.Item>
+              <NavDropdown.Item href="/apecoin/bakc">BAKC</NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link
               href="https://twitter.com/apeuniverse_eth"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img src="/twitter.png" alt="Twitter" width="32" height="32" />
+            </Nav.Link>
+            <Nav.Link
+              href="https://www.clubhouse.com/club/%E6%97%A0%E7%BB%84%E7%BB%87%E6%AD%A3%E5%B8%B8%E4%BA%BA"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="/clubhouse.png"
+                alt="Clubhouse"
+                width="32"
+                height="32"
+              />
             </Nav.Link>
             {isAuthenticated ? (
               <NavDropdown
