@@ -45,8 +45,7 @@ const Header: React.FC<{}> = ({}) => {
     if (ethers.utils.isAddress(_address)) {
       setShow(true);
       assets = [];
-      getCollections("0x020cA66C30beC2c4Fe3861a94E4DB4A498A35872");
-      // getCollections(_address);
+      getCollections(_address);
     } else {
       alert("Something strange occured. Please contact admin.");
     }

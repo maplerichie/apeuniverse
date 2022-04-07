@@ -106,7 +106,7 @@ export default async function handle(
           update: assetObj,
           create: assetObj,
         });
-        console.log(upsert);
+        console.log(upsert.id);
       }
       if (assets.length == 0) {
         await prisma.asset.updateMany({
