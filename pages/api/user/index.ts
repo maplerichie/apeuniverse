@@ -98,13 +98,15 @@ export default async function handle(
           tokenId: asset.tokenId,
           userId: user.id,
         };
-        await prisma.asset.upsert({
+
+        let upsert = await prisma.asset.upsert({
           where: {
             assetKey: assetObj.assetKey,
           },
           update: assetObj,
           create: assetObj,
         });
+        console.log(upsert);
       }
       if (assets.length == 0) {
         await prisma.asset.updateMany({
