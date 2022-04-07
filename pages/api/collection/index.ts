@@ -26,6 +26,7 @@ export default async function handle(
     collections = await prisma.collection.findMany({
       where: { status: 1 },
       select: {
+        id: true,
         name: true,
         website: true,
         discord: true,
