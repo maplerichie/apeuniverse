@@ -13,12 +13,11 @@ function initMiddleware(middleware) {
         const origin = req.headers.origin;
         const host = req.headers.host;
         if (origin === undefined) {
-          if (host !== "localhost:42135") {
+          if (
+            host !== "localhost:42135" &&
+            req.headers["api-key"] !== "apepy"
+          ) {
             return reject("403 Forbidden");
-          } else {
-            if (req.headers["api-key"] !== "apepy") {
-              return reject("403 Forbidden");
-            }
           }
         } else {
           if (whitelist.indexOf(origin) < 0) {
