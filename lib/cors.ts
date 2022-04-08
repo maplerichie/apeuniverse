@@ -1,7 +1,7 @@
 import Cors from "cors";
 
 var whitelist = [
-  "http://localhost:42135",
+  "http://localhost:4000",
   "https://apeuniverse.xyz",
   "https://www.apeuniverse.xyz",
 ];
@@ -13,10 +13,7 @@ function initMiddleware(middleware) {
         const origin = req.headers.origin;
         const host = req.headers.host;
         if (origin === undefined) {
-          if (
-            host !== "localhost:42135" &&
-            req.headers["api-key"] !== "apepy"
-          ) {
+          if (host !== "localhost:4000" && req.headers["api-key"] !== "apepy") {
             return reject("403 Forbidden");
           }
         } else {
