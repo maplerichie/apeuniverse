@@ -7,9 +7,6 @@ import styles from "../styles/Common.module.scss";
 export const Collection: React.FC<{
   collection: any;
 }> = ({ collection }) => {
-  if (collection.opensea != "boredapeyachtclub") {
-    return <></>;
-  }
   return (
     <div>
       <div className={styles.collectionInfo}>
