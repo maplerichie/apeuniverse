@@ -54,7 +54,8 @@ const Header: React.FC<{}> = ({}) => {
   const getCollections = async (_address) => {
     let res = await (
       await fetch(
-        process.env.NEXT_PUBLIC_DOMAIN_URL + "api/collection?filter=true",
+        // process.env.NEXT_PUBLIC_DOMAIN_URL + "api/collection?filter=true",
+        "/api/collection?filter=true",
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },

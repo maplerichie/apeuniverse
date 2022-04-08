@@ -1,11 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { verifyJwt } from "../../../lib/jwt";
+import { cors } from "../../../lib/cors";
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await cors(req, res);
   const { query, method } = req;
   let { address } = req.query;
   let token = req.headers.authorization?.slice(7);

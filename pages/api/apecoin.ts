@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
 import { ethers } from "ethers";
+import { cors } from "../../lib/cors";
 
 let provider = new ethers.providers.JsonRpcProvider("https://rpc.ankr.com/eth");
 let apecoinAbi = [
@@ -18,6 +19,7 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await cors(req, res);
   const { method, body } = req;
 
   switch (method) {

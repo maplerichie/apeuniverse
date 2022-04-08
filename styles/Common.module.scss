@@ -276,15 +276,16 @@
   background-color: transparent;
   perspective: 1000px;
   position: relative;
-  width: 192px;
-  max-width: 45vw;
-  height: 192px;
-  max-height: 45vw;
+  // max-width: 45vw;
+  // width: 192px;
+  // height: 192px;
+  // max-height: 45vw;
   margin: 4px;
 }
 
 .assetInner {
   position: relative;
+  display: grid;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -308,6 +309,7 @@
   width: 100%;
   height: 100%;
   color: white;
+  position: absolute;
   transform: rotateY(180deg);
   box-shadow: 1px 1px 10px 2px #0ff;
   display: flex;
@@ -328,11 +330,13 @@
 // }
 
 .avatarCard {
+  position: relative;
+  display: grid;
   perspective: 1000px;
-  width: 120px;
-  max-width: calc(31vw - 12px);
-  height: 120px;
-  max-height: calc(31vw - 12px);
+  // width: 120px;
+  // max-width: calc(31vw - 12px);
+  // height: 120px;
+  // max-height: calc(31vw - 12px);
   margin: 6px;
   z-index: 1;
   box-shadow: 1px 1px 10px 1px rgb(204, 0, 255);
@@ -340,7 +344,7 @@
 }
 
 .avatarInner {
-  position: relative;
+  place-items: center;
   width: 100%;
   height: 100%;
   transition: transform 0.8s;
@@ -357,11 +361,14 @@
 }
 
 .avatarImage {
+  position: absolute;
   border-radius: 50%;
   opacity: 25%;
 }
 
 .avatarInfo {
+  position: absolute;
+  place-self: center;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;

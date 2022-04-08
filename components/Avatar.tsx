@@ -6,15 +6,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Avatar: React.FC<{ user: User }> = ({ user }) => {
+  const maxSize = 128;
   return (
     <div className={styles.avatarCard}>
       <ImageWithFallback
         src={user.avatarURI || "/user.png"}
         fallbackSrc={`nft.png`}
         placeholder="blur"
-        blurDataURL={user.avatarURI || "/user.png"}
-        layout="fill"
-        objectFit="cover"
+        blurDataURL={"/user.png"}
+        // layout="fill"
+        height={maxSize}
+        width={maxSize}
+        // objectFit="cover"
         className={styles.avatarImage}
       />
       <div className={styles.avatarInfo}>

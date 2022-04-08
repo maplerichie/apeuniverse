@@ -3,12 +3,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { Collection } from "../../../models";
 import prisma from "../../../lib/prisma";
 import { getErc721, uintToNumber } from "../../../lib/ethers";
+import { cors } from "../../../lib/cors";
 
 const openseaAssetsApi = "https://api.opensea.io/api/v1/assets";
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await cors(req, res);
   const { method, body } = req;
   let haveApe = false;
 

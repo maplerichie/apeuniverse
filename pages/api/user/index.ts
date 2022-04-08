@@ -2,32 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { getEns, generateNonce, verifyMessage } from "../../../lib/ethers";
 import { signJwt, verifyJwt } from "../../../lib/jwt";
-import Cors from "cors";
-
-var whitelist = [
-  "http://localhost:42135",
-  "https://apeuniverse.xyz",
-  "https://www.apeuniverse.xyz",
-];
-
-function initMiddleware(middleware) {
-  return (req, res) =>
-    new Promise((resolve, reject) => {
-      middleware(req, res, (result) => {
-        if (result instanceof Error) {
-          return reject(result);
-        }
-        return resolve(result);
-      });
-    });
-}
-
-const cors = initMiddleware(
-  Cors({
-    methods: ["GET", "PUT", "POST"],
-    origin: "*",
-  })
-);
+import { cors } from "../../../lib/cors";
 
 export default async function handle(
   req: NextApiRequest,
