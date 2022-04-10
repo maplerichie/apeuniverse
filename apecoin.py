@@ -44,8 +44,6 @@ def http_request(type, url, data, headers={}):
 progress_tracker = 100
 
 if __name__ == "__main__":
-    print(TOKEN_KEY)
-    exit()
     url = "http://localhost:4000/api/apecoin"
     db_path = "../apeuniverse/prisma/dev.db"
     con = sqlite3.connect(db_path)
