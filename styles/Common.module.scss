@@ -311,6 +311,7 @@
   color: white;
   position: absolute;
   transform: rotateY(180deg);
+  border-radius: 6px;
   box-shadow: 1px 1px 10px 2px #0ff;
   display: flex;
   justify-content: center;
@@ -348,7 +349,7 @@
   width: 100%;
   height: 100%;
   transition: transform 0.8s;
-  transform-style: preserve-3d;
+  // transform-style: preserve-3d;
   perspective: 1000px;
 
   span {
