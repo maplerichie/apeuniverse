@@ -4,6 +4,11 @@ import sqlite3
 import json
 import requests
 from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv(".env.production")
+
+TOKEN_KEY = os.getenv("TOKEN_KEY")
 
 apecoinAbi = '[{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"alphaClaimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"betaClaimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"gammaClaimed","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}]'
 
@@ -39,6 +44,8 @@ def http_request(type, url, data, headers={}):
 progress_tracker = 100
 
 if __name__ == "__main__":
+    print(TOKEN_KEY)
+    exit()
     url = "http://localhost:4000/api/apecoin"
     db_path = "../apeuniverse/prisma/dev.db"
     con = sqlite3.connect(db_path)
@@ -53,7 +60,7 @@ if __name__ == "__main__":
     for i, row in df.iterrows():
         claimed = apecoin.functions.gammaClaimed(int(row["tokenId"])).call()
         data = json.dumps({
-            "auth": "NGhcA8KQmuzau3h7!qGYgi5Hlkc",
+            "auth": TOKEN_KEY,
             "t": 2,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
@@ -69,7 +76,7 @@ if __name__ == "__main__":
     for i, row in df.iterrows():
         claimed = apecoin.functions.betaClaimed(int(row["tokenId"])).call()
         data = json.dumps({
-            "auth": "NGhcA8KQmuzau3h7!qGYgi5Hlkc",
+            "auth": TOKEN_KEY,
             "t": 1,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
@@ -100,7 +107,7 @@ if __name__ == "__main__":
         #     m2mutated = mayc.functions.hasApeBeenMutatedWithType(
         #         1, int(row["tokenId"])).call()
         data = json.dumps({
-            "auth": "NGhcA8KQmuzau3h7!qGYgi5Hlkc",
+            "auth": TOKEN_KEY,
             "t": 0,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
