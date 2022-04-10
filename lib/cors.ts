@@ -2,11 +2,17 @@ import Cors from "cors";
 
 var originWl = [
   "http://localhost:4000",
+  "http://127.0.0.1:4000",
   "https://apeuniverse.xyz",
   "https://www.apeuniverse.xyz",
 ];
 
-var hostWl = ["localhost:4000", "apeuniverse.xyz", "www.apeuniverse.xyz"];
+var hostWl = [
+  "localhost:4000",
+  "127.0.0.1:4000",
+  "apeuniverse.xyz",
+  "www.apeuniverse.xyz",
+];
 
 function initMiddleware(middleware) {
   return (req, res) =>
