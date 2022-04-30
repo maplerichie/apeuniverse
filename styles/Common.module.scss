@@ -274,7 +274,7 @@
 
 .assetCard {
   background-color: transparent;
-  perspective: 1000px;
+  // perspective: 1000px;
   position: relative;
   // max-width: 45vw;
   // width: 192px;
@@ -333,7 +333,7 @@
 .avatarCard {
   position: relative;
   display: grid;
-  perspective: 1000px;
+  // perspective: 1000px;
   // width: 120px;
   // max-width: calc(31vw - 12px);
   // height: 120px;
@@ -348,9 +348,9 @@
   place-items: center;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s;
+  // transition: transform 0.8s;
   // transform-style: preserve-3d;
-  perspective: 1000px;
+  // perspective: 1000px;
 
   span {
     pointer-events: none;
@@ -358,7 +358,7 @@
 }
 
 .avatarCard:hover .avatarInner {
-  transform: rotateX(180deg);
+  // transform: rotateX(180deg);
 }
 
 .avatarImage {

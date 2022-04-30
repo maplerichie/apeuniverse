@@ -2,6 +2,7 @@ import React from "react";
 import ImageWithFallback from "./ImageWithFallback";
 import { Asset, Collection } from "../models";
 import styles from "../styles/Common.module.scss";
+import Image from "next/image";
 
 const AssetImage: React.FC<{
   asset: Asset;
@@ -11,10 +12,19 @@ const AssetImage: React.FC<{
   return (
     <div className={styles.assetCard}>
       <div className={styles.assetInner}>
-        <ImageWithFallback
+        {/* <ImageWithFallback
           src={asset.imageURI + "=w" + maxSize}
           alt={collection.name + "#" + asset.tokenId}
           fallbackSrc={"/nft.png"}
+          // layout="fill"
+          width={maxSize}
+          height={maxSize}
+          objectFit="cover"
+          className={styles.assetImage}
+        /> */}
+        <Image
+          src={asset.imageURI + "=w" + maxSize}
+          alt={collection.name + "#" + asset.tokenId}
           // layout="fill"
           width={maxSize}
           height={maxSize}

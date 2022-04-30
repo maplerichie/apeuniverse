@@ -9,6 +9,7 @@ import { Collection as CollectionRow } from "../components/Collection";
 
 type Props = {
   users: User[];
+  collections: Collection[];
 };
 
 const Home: NextPage = (props: Props) => {
@@ -33,9 +34,10 @@ const Home: NextPage = (props: Props) => {
         ))}
       </div>
       <div id="gallery" style={{ width: "100%" }}>
-        {collections.map((collection, i) => (
-          <CollectionRow key={i.toString()} collection={collection} />
-        ))}
+        {props.collections.map((collection, i) => {
+          // if (i >= 3) return;
+          return <CollectionRow key={i.toString()} collection={collection} />;
+        })}
       </div>
       <hr />
       <h4 className={styles.title}>About us</h4>
@@ -49,10 +51,10 @@ const Home: NextPage = (props: Props) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   let res = await fetch(process.env.DOMAIN_URL + "api/user");
   const users = await res.json();
-  // res = await fetch(process.env.DOMAIN_URL + "api/collection");
-  // const collections = await res.json();
+  res = await fetch(process.env.DOMAIN_URL + "api/collection");
+  const collections = await res.json();
   return {
-    props: { users },
+    props: { users, collections },
   };
 };
 

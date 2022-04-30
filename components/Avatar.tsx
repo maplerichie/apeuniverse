@@ -1,23 +1,23 @@
 import React from "react";
-import ImageWithFallback from "./ImageWithFallback";
 import { User } from "../models/User";
 import styles from "../styles/Common.module.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { BsTwitter } from "react-icons/bs";
 
 const Avatar: React.FC<{ user: User }> = ({ user }) => {
   const maxSize = 128;
   return (
     <div className={styles.avatarCard}>
-      <ImageWithFallback
+      <Image
         src={user.avatarURI || "/user.png"}
-        fallbackSrc={`nft.png`}
+        // fallbackSrc={`nft.png`}
         placeholder="blur"
         blurDataURL={"/user.png"}
         // layout="fill"
         height={maxSize}
         width={maxSize}
-        // objectFit="cover"
+        objectFit="cover"
         className={styles.avatarImage}
       />
       <div className={styles.avatarInfo}>
@@ -37,12 +37,7 @@ const Avatar: React.FC<{ user: User }> = ({ user }) => {
           {user.twitter ? (
             <Link href={"https://twitter.com/" + user.twitter}>
               <a target="_blank" rel="noopener noreferrer">
-                <Image
-                  src="/twitter.png"
-                  alt="Twitter"
-                  width="24"
-                  height="24"
-                />
+                <BsTwitter />
               </a>
             </Link>
           ) : (
