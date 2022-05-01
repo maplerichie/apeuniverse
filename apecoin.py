@@ -7,6 +7,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 load_dotenv(".env.production")
+load_dotenv(".env.development.local")
 
 TOKEN_KEY = os.getenv("TOKEN_KEY")
 
@@ -45,7 +46,7 @@ progress_tracker = 100
 
 if __name__ == "__main__":
     url = "http://localhost:4000/api/apecoin"
-    db_path = "../apeuniverse/prisma/dev.db"
+    db_path = ".//prisma/dev.db"
     con = sqlite3.connect(db_path)
 
     now = datetime.now()
@@ -58,11 +59,14 @@ if __name__ == "__main__":
     for i, row in df.iterrows():
         claimed = apecoin.functions.gammaClaimed(int(row["tokenId"])).call()
         data = json.dumps({
-            "auth": TOKEN_KEY,
+            "auth": TOKEN_KEY + "lkc",
             "t": 2,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
         })
+        print(f"BAKC -> {int(claimed)} ")
+        if claimed:
+            print(f"BAKC#{row['tokenId']} claimed")
         res = http_request("POST", url, data,
                            {"Content-Type": "application/json", "API-KEY": "apepy"})
         if i % progress_tracker == 0 and i != 0 or i == len(df) - 1:
@@ -74,11 +78,13 @@ if __name__ == "__main__":
     for i, row in df.iterrows():
         claimed = apecoin.functions.betaClaimed(int(row["tokenId"])).call()
         data = json.dumps({
-            "auth": TOKEN_KEY,
+            "auth": TOKEN_KEY + "lkc",
             "t": 1,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
         })
+        if claimed:
+            print(f"MAYC#{row['tokenId']} claimed")
         res = http_request("POST", url, data,
                            {"Content-Type": "application/json", "API-KEY": "apepy"})
         if i % progress_tracker == 0 and i != 0 or i == len(df) - 1:
@@ -95,17 +101,23 @@ if __name__ == "__main__":
         claimed = int(row["apecoinClaimed"]) == 1
         # m1mutated = int(row["m1mutated"]) == 1
         # m2mutated = int(row["m2mutated"]) == 1
-        if int(row["apecoinClaimed"]) == 0:
+        if not claimed:
             claimed = apecoin.functions.alphaClaimed(int(
                 row["tokenId"])).call()
-        # if int(row["m1mutated"]) == 0:
+            if claimed:
+                print(f"BAYC#{row['tokenId']} claimed")
+        # if not m1mutated:
         #     m1mutated = mayc.functions.hasApeBeenMutatedWithType(
         #         0, int(row["tokenId"])).call()
-        # if int(row["m2mutated"]) == 0:
+            # if m1mutated:
+            #     print(f"BAYC#{row['tokenId']} m1 mutated")
+        # if not m2mutated:
         #     m2mutated = mayc.functions.hasApeBeenMutatedWithType(
         #         1, int(row["tokenId"])).call()
+            # if m2mutated:
+            #     print(f"BAYC#{row['tokenId']} m2 mutated")
         data = json.dumps({
-            "auth": TOKEN_KEY,
+            "auth": TOKEN_KEY + "lkc",
             "t": 0,
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
