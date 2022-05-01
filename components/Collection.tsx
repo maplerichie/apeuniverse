@@ -10,7 +10,9 @@ export const Collection: React.FC<{
   return (
     <div>
       <div className={styles.collectionInfo}>
-        <h4 className={styles.collectionTitle}>{collection.name}</h4>
+        <h4 className={styles.collectionTitle}>
+          {collection.name}&nbsp;&nbsp;&nbsp;({collection.assets.length})
+        </h4>
         <div className={styles.collectionLinks}>
           {collection.website ? (
             <Link href={collection.website}>
