@@ -64,7 +64,6 @@ if __name__ == "__main__":
             "tokenId": int(row["tokenId"]),
             "apecoinClaimed": claimed,
         })
-        print(f"BAKC -> {int(claimed)} ")
         if claimed:
             print(f"BAKC#{row['tokenId']} claimed")
         res = http_request("POST", url, data,
