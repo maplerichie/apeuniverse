@@ -79,7 +79,7 @@ const BAKC: NextPage = () => {
 
   const refreshUnclaimed = async () => {
     let res = await fetch(
-      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin?type=2&filter=yes",
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=2",
       {
         method: "GET",
         headers: {
@@ -96,7 +96,7 @@ const BAKC: NextPage = () => {
     if (!claimed) {
       openUrl(id, isOpensea);
     } else {
-      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

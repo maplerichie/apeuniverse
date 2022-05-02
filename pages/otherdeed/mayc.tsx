@@ -79,7 +79,7 @@ const MAYC: NextPage = () => {
 
   const refreshUnclaimed = async () => {
     let res = await fetch(
-      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=1&ape=true",
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=1&deed=yes",
       {
         method: "GET",
         headers: {
@@ -96,7 +96,7 @@ const MAYC: NextPage = () => {
     if (!claimed) {
       openUrl(id, isOpensea);
     } else {
-      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const MAYC: NextPage = () => {
         body: JSON.stringify({
           type: 1,
           tokenId: parseInt(id),
-          ape: true,
+          deed: true,
         }),
       }).then((response) => response.json());
       setSelectedTokenId(id);
@@ -172,11 +172,11 @@ const MAYC: NextPage = () => {
       >
         <div>
           <img
-            src="/apecoin.svg"
+            src="/koda.jpg"
             style={{ height: "2.75rem" }}
             className="align-bottom"
           />{" "}
-          to claim&nbsp;
+          Otherdeed to claim&nbsp;
         </div>
         ({unclaimed.length} MAYC)
       </h1>
@@ -304,7 +304,7 @@ const MAYC: NextPage = () => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <p>Sorry, MAYC #{selectedTokenId} already used to claim ApeCoin.</p>
+          <p>Sorry, MAYC #{selectedTokenId} already used to claim otherdeed.</p>
           <div>
             <Button
               variant="secondary"

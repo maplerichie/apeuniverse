@@ -60,6 +60,7 @@ model Collection {
 model Bayc {
   tokenId           Int        @id
   apecoinClaimed    Boolean    @default(false)
+  otherdeedClaimed  Boolean    @default(false)
   m1mutated         Boolean    @default(false)
   m2mutated         Boolean    @default(false)
 }
@@ -67,6 +68,7 @@ model Bayc {
 model Mayc {
   tokenId           Int        @id
   apecoinClaimed    Boolean    @default(false)
+  otherdeedClaimed  Boolean    @default(false)
   minted            Boolean    @default(false)
 }
 

@@ -17,18 +17,18 @@ declare let window: any;
 const assetApi = "https://api.opensea.io/api/v1/assets";
 const osUrl = "https://opensea.io/assets/";
 const lrUrl = "https://looksrare.org/collections/";
-const address = "0x60e4d786628fea6478f785a6d7e704777c86a7c6";
+const address = "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D";
 const provider = new ethers.providers.JsonRpcProvider(
   "https://rpc.ankr.com/eth"
 );
-const abi = ["function betaClaimed(uint256) public view returns (bool)"];
+const abi = ["function alphaClaimed(uint256) public view returns (bool)"];
 const contract = new ethers.Contract(
   "0x025c6da5bd0e6a5dd1350fda9e3b6a614b205a1f",
   abi,
   provider
 );
 
-const MAYC: NextPage = () => {
+const BAYC: NextPage = () => {
   const [timer, setTimer] = useState(null);
   const [assets, setAssets] = useState([]);
   const [page, setPage] = useState(0);
@@ -79,7 +79,7 @@ const MAYC: NextPage = () => {
 
   const refreshUnclaimed = async () => {
     let res = await fetch(
-      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=1&ape=true",
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=0&deed=yes",
       {
         method: "GET",
         headers: {
@@ -92,19 +92,19 @@ const MAYC: NextPage = () => {
   };
 
   const checkClaimed = async (id, isOpensea) => {
-    let claimed = await contract.betaClaimed(parseInt(id));
+    let claimed = await contract.alphaClaimed(parseInt(id));
     if (!claimed) {
       openUrl(id, isOpensea);
     } else {
-      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          type: 1,
+          type: 0,
           tokenId: parseInt(id),
-          ape: true,
+          deed: true,
         }),
       }).then((response) => response.json());
       setSelectedTokenId(id);
@@ -170,15 +170,16 @@ const MAYC: NextPage = () => {
           flexWrap: "wrap",
         }}
       >
+        {/* 1655281800 */}
         <div>
           <img
-            src="/apecoin.svg"
+            src="/koda.jpg"
             style={{ height: "2.75rem" }}
             className="align-bottom"
           />{" "}
-          to claim&nbsp;
+          Otherdeed to claim&nbsp;
         </div>
-        ({unclaimed.length} MAYC)
+        ({unclaimed.length} BAYC)
       </h1>
       <div className={styles.pageButtons}>
         {page != 0 ? (
@@ -304,7 +305,7 @@ const MAYC: NextPage = () => {
       >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body>
-          <p>Sorry, MAYC #{selectedTokenId} already used to claim ApeCoin.</p>
+          <p>Sorry, BAYC #{selectedTokenId} already used to claim ApeCoin.</p>
           <div>
             <Button
               variant="secondary"
@@ -325,4 +326,4 @@ const MAYC: NextPage = () => {
   );
 };
 
-export default MAYC;
+export default BAYC;

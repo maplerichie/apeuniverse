@@ -79,7 +79,7 @@ const BAYC: NextPage = () => {
 
   const refreshUnclaimed = async () => {
     let res = await fetch(
-      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin?type=0&filter=yes",
+      process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all?type=0&ape=true",
       {
         method: "GET",
         headers: {
@@ -96,7 +96,7 @@ const BAYC: NextPage = () => {
     if (!claimed) {
       openUrl(id, isOpensea);
     } else {
-      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/apecoin", {
+      await fetch(process.env.NEXT_PUBLIC_DOMAIN_URL + "api/all", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -104,6 +104,7 @@ const BAYC: NextPage = () => {
         body: JSON.stringify({
           type: 0,
           tokenId: parseInt(id),
+          ape: true,
         }),
       }).then((response) => response.json());
       setSelectedTokenId(id);
