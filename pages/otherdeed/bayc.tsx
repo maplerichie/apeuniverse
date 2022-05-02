@@ -23,7 +23,7 @@ const provider = new ethers.providers.JsonRpcProvider(
 );
 const abi = ["function alphaClaimed(uint256) public view returns (bool)"];
 const contract = new ethers.Contract(
-  "0x025c6da5bd0e6a5dd1350fda9e3b6a614b205a1f",
+  "0x34d85c9CDeB23FA97cb08333b511ac86E1C4E258",
   abi,
   provider
 );

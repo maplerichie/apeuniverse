@@ -169,6 +169,18 @@ const Header: React.FC<{}> = ({}) => {
               <NavDropdown.Item href="/apecoin/mayc">MAYC</NavDropdown.Item>
               <NavDropdown.Item href="/apecoin/bakc">BAKC</NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Otherdeed Claim" id="collasible-nav-dropdown">
+              <NavDropdown.Item
+                href="https://otherside.xyz/claim"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Claim now!
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="/otherdeed/bayc">BAYC</NavDropdown.Item>
+              <NavDropdown.Item href="/otherdeed/mayc">MAYC</NavDropdown.Item>
+            </NavDropdown>
             <Nav.Link
               href="https://twitter.com/apeuniverse_eth"
               target="_blank"
