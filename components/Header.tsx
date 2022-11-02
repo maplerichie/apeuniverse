@@ -154,9 +154,8 @@ const Header: React.FC<{}> = ({}) => {
           id="responsive-navbar-nav"
           className="justify-content-end"
         >
-          {/* <Nav className="me-auto"> */}
           <Nav style={{ alignItems: "center" }}>
-            <NavDropdown title="$APE Claim" id="collasible-nav-dropdown">
+            {/* <NavDropdown title="$APE Claim" id="collasible-nav-dropdown">
               <NavDropdown.Item
                 href="https://www.apecoin.com/claim"
                 target="_blank"
@@ -180,13 +179,20 @@ const Header: React.FC<{}> = ({}) => {
               <NavDropdown.Divider />
               <NavDropdown.Item href="/otherdeed/bayc">BAYC</NavDropdown.Item>
               <NavDropdown.Item href="/otherdeed/mayc">MAYC</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
             <Nav.Link
               href="https://twitter.com/apeuniverse_eth"
               target="_blank"
               rel="noopener noreferrer"
             >
               <img src="/twitter.png" alt="Twitter" width="32" height="32" />
+            </Nav.Link>
+            <Nav.Link
+              href="https://discord.gg/JNPHXcwDuY"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src="/discord.png" alt="Discord" width="32" height="32" />
             </Nav.Link>
             <Nav.Link
               href="https://www.clubhouse.com/club/%E6%97%A0%E7%BB%84%E7%BB%87%E6%AD%A3%E5%B8%B8%E4%BA%BA"

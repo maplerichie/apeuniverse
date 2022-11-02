@@ -27,7 +27,7 @@ const Home: NextPage = (props: Props) => {
 
   return (
     <Layout>
-      <h4 className={styles.title}>Members</h4>
+      <h4 className={styles.title}>Proud Members</h4>
       <div className={styles.grid} id="members">
         {props.users.map((user, i) => (
           <Avatar key={i.toString()} user={user} />
